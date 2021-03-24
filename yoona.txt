@@ -1,0 +1,6 @@
+yoona chung
+
+
+#git add yoona.txt
+#git commit -m "add text file"
+#git push 
