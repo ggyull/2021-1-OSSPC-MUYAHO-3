@@ -1,0 +1,11 @@
+seonggyun kim
+
+
+1.
+#git add seonggyun.txt
+#git commit -m "add text file"
+#git push
+
+2.
+#git commit -am "add text file"
+#git push
