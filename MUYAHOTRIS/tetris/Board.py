@@ -173,14 +173,28 @@ class Board:
                         while self.can_move_piece(0, tmp):
                             tmp += 1
                         x_s, y_s = self.pos_to_pixel(x, y+tmp-1)
-                        pygame.draw.rect(self.screen, self.piece.T_COLOR[7],
-                                        (x_pix, y_s, self.block_size, self.block_size))
-                        pygame.draw.rect(self.screen, BLACK,
-                                        (x_pix, y_s, self.block_size, self.block_size),1)
+
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, BLACK,
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
+
+    def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
+        for y, row in enumerate(array2d):
+            y += dy
+            if y >= 2 and y < self.height:
+                for x, block in enumerate(row):
+                    x += dx
+                    if block:
+                        tmp = 1
+                        while self.can_move_piece(0,tmp):
+                            tmp += 1
+                        x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
+
+                        pygame.draw.rect(self.screen, self.piece.T_COLOR[7],
+                                         (x_s, y_s, self.block_size, self.block_size))
+                        pygame.draw.rect(self.screen, BLACK,
+                                         (x_s, y_s, self.block_size, self.block_size),1)
 
     def draw_next_piece(self, array2d, color=WHITE):
         for y, row in enumerate(array2d):
@@ -203,9 +217,10 @@ class Board:
                  (x_pix, y_pix, self.block_size, self.block_size))
                 pygame.draw.rect(self.screen, BLACK,
                  (x_pix, y_pix, self.block_size, self.block_size),1)
+        self.draw_shadow(self.piece, dx=self.piece_x,dy=self.piece_y) #그림자 기능 추가
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
-        pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450))
+        pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450)) # 게임시 옆에 흰색 바탕 관련 코드
         self.draw_next_piece(self.next_piece)
         next_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
         skill_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('SKILL', True, BLACK)
