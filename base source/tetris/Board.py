@@ -153,10 +153,10 @@ class Board:
                     self.goal = 5 * self.level
                 else:
                     self.goal = '-'
-            if self.level <= 9:
-                pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
-            else:
-                pygame.time.set_time(pygame.USEREVENT, 100)
+          #  if self.level <= 9:
+           #     pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
+            #else:
+             #   pygame.time.set_time(pygame.USEREVENT, 100)
 
     def game_over(self):
         return sum(self.board[0]) > 0 or sum(self.board[1]) > 0
