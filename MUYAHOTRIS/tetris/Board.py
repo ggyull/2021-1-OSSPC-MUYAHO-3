@@ -44,7 +44,7 @@ class Board:
             self.skill += 2
 
     def block_collide_with_board(self, x, y):
-        if x < 0:
+        if x < Set.left_wall_x:
             return Error_Type.COLLIDE_ERROR['left_wall']
         elif x >= self.width:
             return Error_Type.COLLIDE_ERROR['right_wall']
@@ -71,7 +71,7 @@ class Board:
         return True
 
     def can_drop_piece(self):
-        return self.can_move_piece(dx=0, dy=1)
+        return self.can_move_piece(dx=Set.keep_state, dy=Set.plus_one)
 
     def try_rotate_piece(self, clockwise=True):
         self.piece.rotate(clockwise)
@@ -79,17 +79,17 @@ class Board:
         if not collide:
             pass
         elif collide == Error_Type.COLLIDE_ERROR['left_wall']:
-            if self.can_move_piece(dx=1, dy=0):
-                self.move_piece(dx=1, dy=0)
-            elif self.can_move_piece(dx=2, dy=0):
-                self.move_piece(dx=2, dy=0)
+            if self.can_move_piece(dx=Set.plus_one, dy=Set.keep_state):
+                self.move_piece(dx=Set.plus_one, dy=Set.keep_state)
+            elif self.can_move_piece(dx=Set.plus_two, dy=Set.keep_state):
+                self.move_piece(dx=Set.plus_two, dy=Set.keep_state)
             else:
                 self.piece.rotate(not clockwise)
         elif collide == Error_Type.COLLIDE_ERROR['right_wall']:
-            if self.can_move_piece(dx=-1, dy=0):
-                self.move_piece(dx=-1, dy=0)
-            elif self.can_move_piece(dx=-2, dy=0):
-                self.move_piece(dx=-2, dy=0)
+            if self.can_move_piece(dx=-Set.plus_one, dy=Set.keep_state):
+                self.move_piece(dx=-Set.plus_one, dy=Set.keep_state)
+            elif self.can_move_piece(dx=-Set.plus_two, dy=Set.keep_state):
+                self.move_piece(dx=-Set.plus_two, dy=Set.keep_state)
             else:
                 self.piece.rotate(not clockwise)
         else:
@@ -102,7 +102,7 @@ class Board:
 
     def drop_piece(self):
         if self.can_drop_piece():
-            self.move_piece(dx=0, dy=1)
+            self.move_piece(dx=Set.keep_state, dy=Set.plus_one)
         else:
             self.absorb_piece()
             self.delete_lines()

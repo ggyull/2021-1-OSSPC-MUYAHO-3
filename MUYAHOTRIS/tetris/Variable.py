@@ -33,3 +33,7 @@ class Set:
     empty_board = 0 # 블록이 없는 빈 상태
     create_location_x = 3 # 블록 생성 초기 x위치
     create_location_y = 0 # 블록 생성 초기 y위치
+    left_wall_x = 0 # 왼쪽 벽 좌표
+    keep_state = 0 # 블록 상태유지 상수
+    plus_one = 1 # 블록 한칸 이동 상수
+    plus_two = 2 # 블록 두칸 이동 상수
