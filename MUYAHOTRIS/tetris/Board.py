@@ -45,7 +45,7 @@ class Board:
     def nextpiece(self):
         self.piece = self.next_piece
         self.next_piece = Piece()
-        self.piece_x, self.piece_y = 3, 0
+        self.piece_x, self.piece_y = 3,0
 
     def absorb_piece(self):
         for y, row in enumerate(self.piece):

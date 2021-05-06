@@ -1,11 +1,23 @@
-# OSD_game  
+# 2021-1-OSSPC-MUYAHO-3
 
 [![License](https://img.shields.io/badge/license-GPLv3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-![Laguage](https://img.shields.io/badge/python-3.6.0-blue.svg)
-![Laguage](https://img.shields.io/badge/pygame-1.9.3-blue.svg)    
+![badges](https://img.shields.io/badge/OS-ubuntu-red)
+![Laguage](https://img.shields.io/badge/python-3.6.5-blue.svg)
+![Laguage](https://img.shields.io/badge/pygame-2.0.1-blue.svg)    
 
-### [ScreenShots](https://github.com/alchon/OSD_game/tree/master/pictures)        
-![Gaming](https://github.com/alchon/OSD_game/blob/master/pictures/tetris.gif?raw=true)  
+## Origin Base Source  
+- https://github.com/hbseo/OSD_game
+
+
+**3조 무야호(MUYAHO)**
+pygame Tetris
+
+**팀장: [김성균](https://github.com/ggyull/2021-1-OSSPC-MUYAHO-3)**
+
+**팀원: [황동진](https://github.com/Fluffy-Star/2021-1-OSSPC-MUYAHO-3)**
+
+**팀원: [이유림](https://github.com/RimuZZ/2021-1-OSSPC-MUYAHO-3)**
+
 
 ## 조작 키  
 - a, 왼쪽 방향키 : 블럭을 왼쪽으로 한칸 이동시킨다  
@@ -47,5 +59,5 @@
 - 스킬 사용시 폭탄 터지는 효과음 추가  
 - 최고 점수를 txt파일로 저장하여 게임을 다시 시작해도 최고 점수를 알 수 있다  
 
-## 사용한 레퍼런스  
-- https://github.com/ktt3ja/kttetris
+## Origin Base Source  
+- https://github.com/hbseo/OSD_game
