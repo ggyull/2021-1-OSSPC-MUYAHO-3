@@ -119,10 +119,10 @@ class Board:
         return self.block_size*x, self.block_size*(y-2)
 
     def pos_to_pixel_next(self, x, y):
-        return self.block_size*x*0.6, self.block_size*(y-2)*0.6
+        return self.block_size*x*Size.next_block_ratio, self.block_size*(y-2)*Size.next_block_ratio
 
     def delete_line(self, y):
-        for y in reversed(range(1, y+1)):
+        for y in reversed(range(2, y+1)):
             self.board[y] = list(self.board[y-1])
 
     def delete_lines(self):

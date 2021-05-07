@@ -23,7 +23,8 @@ class Color:
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
     field_height = 20  # 맵 위에서 아래로 사이즈
-    block_size = 25
+    block_size = 25 # 블록 사이즈(픽셀)
+    next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
 
 class Set:
     init_score = 0 # 초기 점수 세팅
@@ -37,3 +38,4 @@ class Set:
     keep_state = 0 # 블록 상태유지 상수
     plus_one = 1 # 블록 한칸 이동 상수
     plus_two = 2 # 블록 두칸 이동 상수
+
