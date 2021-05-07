@@ -13,6 +13,7 @@
 pygame Tetris
 
 **팀장: [김성균](https://github.com/ggyull/2021-1-OSSPC-MUYAHO-3)**
+- 그림자 코드 분석
 
 **팀원: [황동진](https://github.com/Fluffy-Star/2021-1-OSSPC-MUYAHO-3)**
 
