@@ -116,13 +116,13 @@ class Board:
         self.try_rotate_piece(clockwise)
 
     def pos_to_pixel(self, x, y):
-        return self.block_size*x, self.block_size*(y-2)
+        return self.block_size*x, self.block_size*(y-Set.hidden_lines)
 
     def pos_to_pixel_next(self, x, y):
-        return self.block_size*x*Size.next_block_ratio, self.block_size*(y-2)*Size.next_block_ratio
+        return self.block_size*x*Size.next_block_ratio, self.block_size*(y-Set.hidden_lines)*Size.next_block_ratio
 
     def delete_line(self, y):
-        for y in reversed(range(2, y+1)):
+        for y in reversed(range(Set.first_line_index_y, y+Set.dummy_one)):
             self.board[y] = list(self.board[y-1])
 
     def delete_lines(self):
@@ -131,15 +131,15 @@ class Board:
             line_sound = pygame.mixer.Sound("assets/sounds/Line_Clear.wav")
             line_sound.play()
             self.delete_line(y)
-            self.score += 10 * self.level
-            self.goal -= 1
-            if self.goal == 0:
-                if self.level < 10:
-                    self.level += 1
-                    self.goal = 5 * self.level
+            self.score += Set.delete_score * self.level
+            self.goal -= Set.delete_goal
+            if self.goal == Set.success_goal:
+                if self.level < Set.max_level:
+                    self.level += Set.plus_level
+                    self.goal = Set.init_goal * self.level
                 else:
                     self.goal = '-'
-            if self.level <= 9:
+            if self.level < Set.max_level:
                 pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
             else:
                 pygame.time.set_time(pygame.USEREVENT, 100)

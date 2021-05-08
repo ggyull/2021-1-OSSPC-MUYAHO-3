@@ -38,4 +38,13 @@ class Set:
     keep_state = 0 # 블록 상태유지 상수
     plus_one = 1 # 블록 한칸 이동 상수
     plus_two = 2 # 블록 두칸 이동 상수
+    hidden_lines = 2 # 맨위의 숨겨진 줄수
+    first_line_index_y = 2 # 맨 윗줄 y 인덱스
+    dummy_one = 1 # 범위를 맞춰주기 위한 1
+    delete_score = 10 # 줄 삭제시 얻는 점수
+    delete_goal = 1 # 줄 삭제시 지워지는 목표
+    success_goal = 0 # 목표 달성 상수
+    max_level = 10 # 최대 레벨
+    plus_level = 1 # 레벨 1업
+
 
