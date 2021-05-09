@@ -182,7 +182,7 @@ class Board:
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
             y += dy
-            if y >= 2 and y < self.height:
+            if y >= 0 and y < self.height:
                 for x, block in enumerate(row):
                     x += dx
                     if block:
