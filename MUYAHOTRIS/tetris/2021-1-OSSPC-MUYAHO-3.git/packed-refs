@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled 
+e0c708cba2d28dadeef05535d92bc4e70500d4de refs/heads/feature/speed
+547c4881e4d582a98256517b0e9bfe316a0be929 refs/heads/main
+e23cb32a6960ac70408e0759c405e569edb6ae88 refs/heads/yurim/lab
+547c4881e4d582a98256517b0e9bfe316a0be929 refs/heads/yurim/speed

@@ -42,6 +42,10 @@ class Board:
         self.score += self.level
         if self.skill < 100:
             self.skill += 2
+        if self.level < Set.max_level:
+            pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
+        else:
+            pygame.time.set_time(pygame.USEREVENT, 100)
 
     def block_collide_with_board(self, x, y):
         if x < Set.left_wall_x:
@@ -139,10 +143,6 @@ class Board:
                     self.goal = Set.init_goal * self.level
                 else:
                     self.goal = '-'
-            if self.level < Set.max_level:
-                pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
-            else:
-                pygame.time.set_time(pygame.USEREVENT, 100)
 
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
