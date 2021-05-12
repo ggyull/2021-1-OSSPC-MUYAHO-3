@@ -1,4 +1,5 @@
 # 2021-1-OSSPC-MUYAHO-3
+<<<<<<< HEAD
 
 [![License](https://img.shields.io/badge/license-GPLv3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 ![badges](https://img.shields.io/badge/OS-ubuntu-red)
@@ -21,3 +22,6 @@ pygame Tetris
 
 ## Origin Base Source  
 - https://github.com/hbseo/OSD_game
+=======
+HELLO
+>>>>>>> ba8a89a46b3a1ade0ae25180e8b504a4b35e5235
