@@ -145,12 +145,12 @@ class Board:
                 pygame.time.set_time(pygame.USEREVENT, 100)
 
     def game_over(self):
-        return sum(self.board[0]) > 0 or sum(self.board[1]) > 0
+        return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
 
     def draw_blocks(self, array2d, color=Color.WHITE, dx=0, dy=0):
         for y, row in enumerate(array2d):
             y += dy
-            if y >= 2 and y < self.height:
+            if y >= Set.board_third and y < self.height:
                 for x, block in enumerate(row):
                     if block:
                         x += dx
@@ -159,24 +159,24 @@ class Board:
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                        (x_pix, y_pix, self.block_size, self.block_size), 1)
+                                        (x_pix, y_pix, self.block_size, self.block_size), Set.block_border_thickness)
 
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
             y += dy
-            if y >= 2 and y < self.height:
+            if y >= Set.board_first and y < self.height:
                 for x, block in enumerate(row):
                     x += dx
                     if block:
-                        tmp = 1
+                        tmp = Set.plus_one
                         while self.can_move_piece(0,tmp):
-                            tmp += 1
+                            tmp += Set.plus_one
                         x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
 
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[7],
                                          (x_s, y_s, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                         (x_s, y_s, self.block_size, self.block_size),1)
+                                         (x_s, y_s, self.block_size, self.block_size),Set.block_border_thickness)
 
     def draw_next_piece(self, array2d, color=Color.WHITE):
         for y, row in enumerate(array2d):

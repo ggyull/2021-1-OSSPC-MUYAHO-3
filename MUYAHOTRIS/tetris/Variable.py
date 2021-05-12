@@ -46,5 +46,10 @@ class Set:
     success_goal = 0 # 목표 달성 상수
     max_level = 10 # 최대 레벨
     plus_level = 1 # 레벨 1업
+    board_first = 0 # 보드의 첫번째 줄(안보이는 줄, 블록 위치는 여기서부터)
+    board_second = 1 # 보드의 두번째 줄(안보이는 줄)
+    board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
+    block_border_thickness = 1 # 블록 테두리 두께
+
 
 
