@@ -64,12 +64,12 @@ class Tetris:
             self.board.HS(str(self.board.score))
 
 
-    def run(self):
+    def run(self, timer):
         pygame.init()
         icon = pygame.image.load('assets/images/icon.png')
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
-        pygame.time.set_timer(pygame.USEREVENT, 500)
+        pygame.time.set_timer(pygame.USEREVENT, timer)
         start_sound = pygame.mixer.Sound('assets/sounds/Start.wav')
         start_sound.play()
         bgm = pygame.mixer.music.load('assets/sounds/bgm.mp3')

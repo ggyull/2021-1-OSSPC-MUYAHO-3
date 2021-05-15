@@ -31,11 +31,8 @@ class Board:
     def nextpiece(self):
         self.piece = self.next_piece
         self.next_piece = Piece()
-<<<<<<< HEAD
-        self.piece_x, self.piece_y = 3,0
-=======
         self.piece_x, self.piece_y = Set.create_location_x,Set.create_location_y
->>>>>>> ba8a89a46b3a1ade0ae25180e8b504a4b35e5235
+
 
     def absorb_piece(self):
         for y, row in enumerate(self.piece):
@@ -46,10 +43,10 @@ class Board:
         self.score += self.level
         if self.skill < 100:
             self.skill += 2
-        if self.level < Set.max_level:
-            pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
-        else:
-            pygame.time.set_time(pygame.USEREVENT, 100)
+        #if self.level < Set.max_level:
+        #    pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
+        #else:
+        #    pygame.time.set_time(pygame.USEREVENT, 100)
 
     def block_collide_with_board(self, x, y):
         if x < Set.left_wall_x:
@@ -168,11 +165,7 @@ class Board:
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
             y += dy
-<<<<<<< HEAD
-            if y >= 0 and y < self.height:
-=======
             if y >= Set.board_first and y < self.height:
->>>>>>> ba8a89a46b3a1ade0ae25180e8b504a4b35e5235
                 for x, block in enumerate(row):
                     x += dx
                     if block:
