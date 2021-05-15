@@ -57,13 +57,13 @@ class MN:
     menu_display_w = 600
     menu_display_h = 600
     initial_mode = 0
-    
+
 
 #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme.widget_font_color=MAIN_VIOLET                         # 메뉴 위젯 폰트 컬러
-    mytheme.background_color = menu_image                           # 메뉴 배경 설정
+    mytheme.widget_font_color=(0,0,0)                         # 메뉴 위젯 폰트 컬러
+    mytheme.background_color = (0, 155, 0)                           # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
@@ -71,7 +71,7 @@ class MN:
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = widget_image2  # 메뉴 배경 설정
+    mytheme_help.background_color = (150,150,150)  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
