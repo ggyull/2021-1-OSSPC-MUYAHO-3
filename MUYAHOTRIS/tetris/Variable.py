@@ -52,7 +52,7 @@ class Set:
     block_border_thickness = 1 # 블록 테두리 두께
 
 
-class Menu:
+class MN:
     infoObject = () #디스플레이 사이즈 받기
     menu_display_w = 600
     menu_display_h = 600
