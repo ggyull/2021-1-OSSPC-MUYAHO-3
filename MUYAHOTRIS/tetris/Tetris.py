@@ -35,8 +35,6 @@ class Tetris:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
             self.board.full_drop_piece()
-        elif event_key == K_q:
-            self.board.ultimate()
         elif event_key == K_m:
             self.music_on_off = not self.music_on_off
             if self.music_on_off:

@@ -23,42 +23,6 @@ class Color:
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
     field_height = 20  # 맵 위에서 아래로 사이즈
-    block_size = 25
-
-class Set:
-    init_score = 0 # 초기 점수 세팅
-    init_level = 1 # 초기 레벨
-    init_goal = 5 # 레벨업을 하기 위한 조건
-    init_skill = 0 # q스킬 게이지
-    empty_board = 0 # 블록이 없는 빈 상태
-    create_location_x = 3 # 블록 생성 초기 x위치
-    create_location_y = 0 # 블록 생성 초기 y위치
-=======
-import pygame
-import pygame_menu
-import random
-import os
-
-class Error_Type:
-    COLLIDE_ERROR = {'no_error': 0, 'right_wall': 1, 'left_wall': 2, 'bottom': 3, 'overlap': 4}
-
-class Color:
-    #               R    G    B
-    WHITE = (255, 255, 255)
-    GRAY = (185, 185, 185)
-    BLACK = (0, 0, 0)
-    RED = (155, 0, 0)
-    LIGHTRED = (175, 20, 20)
-    GREEN = (0, 155, 0)
-    LIGHTGREEN = (20, 175, 20)
-    BLUE = (0, 0, 155)
-    LIGHTBLUE = (20, 20, 175)
-    YELLOW = (155, 155, 0)
-    LIGHTYELLOW = (175, 175, 20)
-
-class Size:
-    field_width = 10  # 맵의 좌에서 우로 사이즈
-    field_height = 20  # 맵 위에서 아래로 사이즈
     block_size = 25 # 블록 사이즈(픽셀)
     next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
 
@@ -86,3 +50,37 @@ class Set:
     board_second = 1 # 보드의 두번째 줄(안보이는 줄)
     board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
     block_border_thickness = 1 # 블록 테두리 두께
+
+class Draw:
+    Shape_Color_Match = 1 # 블록을 채우는 상수와 Block_COLOR의 인덱스를 맞춰주기 위한 1(Board에서 빼줌)
+    Shadow_Color_index = 7 # 그림자 색의 인덱스 (55, 55, 55)
+    screen_point1_x = 250 # 흰색 스크린 시작점 x 위치
+    screen_point1_y = 0  # 흰색 스크린 시작점 y 위치
+    screen_point2_x = 350  # 흰색 스크린 종료점 x 위치
+    screen_point2_y = 450  # 흰색 스크린 종료점 y 위치
+    next_text_size = 18  # Next 글씨 크기
+    next_text_dx = 255 # Next 글씨 x위치
+    next_text_dy = 20  # Next 글씨 y위치
+    score_text_size = 18  # score 글씨 크기
+    score_text_dx = 255 # score 글씨 x 위치
+    score_text_dy = 120  # score 글씨 y 위치
+    score_value_size = 16  # score 값 크기
+    score_value_dx = 255 # score 값 x 위치
+    score_value_dy = 145  # score 값 y 위치
+    level_text_size = 18  # level 글씨 크기
+    level_text_dx = 255 # level 글씨 x 위치
+    level_text_dy = 200  # level 글씨 y 위치
+    level_value_size = 16  # level 값 크기
+    level_value_dx = 255 # level 값 x 위치
+    level_value_dy = 225  # level 값 y 위치
+    goal_text_size = 18  # goal 글씨 크기
+    goal_text_dx = 255  # goal 글씨 x 위치
+    goal_text_dy = 275  # goal 글씨 y 위치
+    goal_value_size = 16  # goal 값 크기
+    goal_value_dx = 255  # goal 값 x 위치
+    goal_value_dy = 300  # goal 값 y 위치
+    time_text_size = 18  # time 글씨 크기
+    time_text_dx = 255 # time 글씨 x 위치
+    time_text_dy = 430  # time 글씨 y 위치
+
+    
