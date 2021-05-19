@@ -65,12 +65,17 @@ class Menu:
     def help(self): # help 페이
         self.page='page7'
         self.surface = pygame.display.set_mode(MN.help_screen)
+        help_image = pygame.image.load("assets/images/bomb.jpg")
+        help_image = pygame.transform.scale(help_image, (300,400))
+        self.surface.blit(help_image,(0,0))
+        pygame.display.update()
         self.menu = pygame_menu.Menu(MN.help_h, MN.help_w, '', theme=self.mytheme2)
         self.menu.add_vertical_margin(self.margin_help)
         self.menu.add_button(' back ', self.reset,font_size=self.font_sub)
 
     def show_game(self):
         self.page = 'page1'
+
         #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage

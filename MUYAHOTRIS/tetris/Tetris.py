@@ -72,7 +72,7 @@ class Tetris:
         pygame.time.set_timer(pygame.USEREVENT, timer)
         start_sound = pygame.mixer.Sound('assets/sounds/Start.wav')
         start_sound.play()
-        bgm = pygame.mixer.music.load('assets/sounds/bgm.mp3')
+        bgm = pygame.mixer.music.load('assets/sounds/new_bgm.mp3')
         while True:
             if self.check_reset:
                 self.board.newGame()
@@ -102,6 +102,3 @@ class Tetris:
             self.board.draw()
             pygame.display.update()
             self.clock.tick(30)
-
-if __name__ == "__main__":
-    Tetris().run()

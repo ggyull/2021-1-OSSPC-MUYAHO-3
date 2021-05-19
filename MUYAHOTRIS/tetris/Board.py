@@ -33,12 +33,13 @@ class Board:
         self.next_piece = Piece()
         self.piece_x, self.piece_y = Set.create_location_x,Set.create_location_y
 
-
     def absorb_piece(self):
         for y, row in enumerate(self.piece):
             for x, block in enumerate(row):
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
+        block_sound = pygame.mixer.Sound("assets/sounds/Mp_jab.mp3")
+        block_sound.play()
         self.nextpiece()
         self.score += self.level
         if self.skill < 100:
@@ -133,7 +134,7 @@ class Board:
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/Line_Clear.wav")
+            line_sound = pygame.mixer.Sound("assets/sounds/LOL.mp3")
             line_sound.play()
             self.delete_line(y)
             self.score += Set.delete_score * self.level
@@ -272,17 +273,6 @@ class Board:
                     running = False
 
     def newGame(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Tetris', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.fill(Color.BLACK)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
         running = True
         while running:

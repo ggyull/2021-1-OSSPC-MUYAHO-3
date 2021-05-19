@@ -71,7 +71,7 @@ class MN:
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = (150,150,150)  # 메뉴 배경 설정
+    mytheme_help.background_color = (155,155,155)  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
