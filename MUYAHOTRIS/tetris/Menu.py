@@ -66,7 +66,7 @@ class Menu:
         self.page='page7'
         self.surface = pygame.display.set_mode(MN.help_screen)
         help_image = pygame.image.load("assets/images/bomb.jpg")
-        help_image = pygame.transform.scale(help_image, (350,450))
+        help_image = pygame.transform.scale(help_image, (300,400))
         self.surface.blit(help_image,(0,0))
         pygame.display.update()
         self.menu = pygame_menu.Menu(MN.help_h, MN.help_w, '', theme=self.mytheme2)
@@ -75,6 +75,7 @@ class Menu:
 
     def show_game(self):
         self.page = 'page1'
+
         #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
