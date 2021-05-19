@@ -31,25 +31,22 @@ class Board:
     def nextpiece(self):
         self.piece = self.next_piece
         self.next_piece = Piece()
-<<<<<<< HEAD
-        self.piece_x, self.piece_y = 3,0
-=======
         self.piece_x, self.piece_y = Set.create_location_x,Set.create_location_y
->>>>>>> ba8a89a46b3a1ade0ae25180e8b504a4b35e5235
 
     def absorb_piece(self):
         for y, row in enumerate(self.piece):
             for x, block in enumerate(row):
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
+        block_sound = pygame.mixer.Sound("assets/sounds/Mp_jab.mp3")
+        block_sound.play()
         self.nextpiece()
         self.score += self.level
-        if self.skill < 100:
-            self.skill += 2
-        if self.level < Set.max_level:
-            pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
-        else:
-            pygame.time.set_time(pygame.USEREVENT, 100)
+
+        #if self.level < Set.max_level:
+        #    pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
+        #else:
+        #    pygame.time.set_time(pygame.USEREVENT, 100)
 
     def block_collide_with_board(self, x, y):
         if x < Set.left_wall_x:
@@ -136,7 +133,7 @@ class Board:
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/Line_Clear.wav")
+            line_sound = pygame.mixer.Sound("assets/sounds/LOL.mp3")
             line_sound.play()
             self.delete_line(y)
             self.score += Set.delete_score * self.level
@@ -160,7 +157,7 @@ class Board:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
 
-                        pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
+                        pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
                                         (x_pix, y_pix, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, Color.BLACK,
                                         (x_pix, y_pix, self.block_size, self.block_size), Set.block_border_thickness)
@@ -168,11 +165,7 @@ class Board:
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
             y += dy
-<<<<<<< HEAD
-            if y >= 0 and y < self.height:
-=======
             if y >= Set.board_first and y < self.height:
->>>>>>> ba8a89a46b3a1ade0ae25180e8b504a4b35e5235
                 for x, block in enumerate(row):
                     x += dx
                     if block:
@@ -181,7 +174,7 @@ class Board:
                             tmp += Set.plus_one
                         x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
 
-                        pygame.draw.rect(self.screen, self.piece.T_COLOR[7],
+                        pygame.draw.rect(self.screen, self.piece.Block_COLOR[Draw.Shadow_Color_index],
                                          (x_s, y_s, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, Color.BLACK,
                                          (x_s, y_s, self.block_size, self.block_size),Set.block_border_thickness)
@@ -191,7 +184,7 @@ class Board:
             for x, block in enumerate(row):
                 if block:
                     x_pix, y_pix = self.pos_to_pixel_next(x,y)
-                    pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
+                    pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
                                     (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5))
                     pygame.draw.rect(self.screen, Color.BLACK,
                                     (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
@@ -206,35 +199,30 @@ class Board:
                 pygame.draw.rect(self.screen, (26,26,26),
                  (x_pix, y_pix, self.block_size, self.block_size))
                 pygame.draw.rect(self.screen, Color.BLACK,
-
                  (x_pix, y_pix, self.block_size, self.block_size),1)
 
         self.draw_shadow(self.piece, dx=self.piece_x,dy=self.piece_y) #그림자 기능 추가
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
 
-        pygame.draw.rect(self.screen, Color.WHITE, Rect(250, 0, 350, 450)) # 게임시 옆에 흰색 바탕 관련 코드
+        pygame.draw.rect(self.screen, Color.WHITE, Rect(Draw.screen_point1_x, Draw.screen_point1_y, Draw.screen_point2_x, Draw.screen_point2_y)) # 게임시 옆에 흰색 바탕 관련 코드
         self.draw_next_piece(self.next_piece)
-        next_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('NEXT', True, Color.BLACK)
-        skill_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('SKILL', True, Color.BLACK)
-        skill_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.skill)+'%', True, Color.BLACK)
-        score_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('SCORE', True, Color.BLACK)
-        score_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.score), True, Color.BLACK)
-        level_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('LEVEL', True, Color.BLACK)
-        level_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.level), True, Color.BLACK)
-        goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('GOAL', True, Color.BLACK)
-        goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.goal), True, Color.BLACK)
-        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', 14).render(str(nowTime), True, Color.BLACK)
-        self.screen.blit(next_text, (255, 20))
-        self.screen.blit(skill_text, (255, 120))
-        self.screen.blit(skill_value, (255, 145))
-        self.screen.blit(score_text, (255, 200))
-        self.screen.blit(score_value, (255,225))
-        self.screen.blit(level_text, (255, 275))
-        self.screen.blit(level_value, (255,300))
-        self.screen.blit(goal_text, (255, 350))
-        self.screen.blit(goal_value, (255,375))
-        self.screen.blit(time_text, (255, 430))
+        next_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.next_text_size).render('NEXT', True, Color.BLACK)
+        score_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.score_text_size).render('SCORE', True, Color.BLACK)
+        score_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.score_value_size).render(str(self.score), True, Color.BLACK)
+        level_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.level_text_size).render('LEVEL', True, Color.BLACK)
+        level_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.level_value_size).render(str(self.level), True, Color.BLACK)
+        goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_text_size).render('GOAL', True, Color.BLACK)
+        goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
+        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(str(nowTime), True, Color.BLACK)
+        self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
+        self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
+        self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
+        self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
+        self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
+        self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
+        self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
+        self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
         fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
@@ -279,17 +267,6 @@ class Board:
                     running = False
 
     def newGame(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Tetris', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.fill(Color.BLACK)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
         running = True
         while running:
@@ -323,16 +300,17 @@ class Board:
                     elif event.type == KEYDOWN:
                         running = False
 
-    def ultimate(self):
-        if self.skill == 100:
-            bomb = pygame.image.load("assets/images/bomb.jpg")
-            bomb = pygame.transform.scale(bomb, (350, 450))
-            bomb_sound = pygame.mixer.Sound('assets/sounds/bomb.wav')
-            self.screen.blit(bomb, (0, 0))
-            pygame.display.update()
-            bomb_sound.play()
-            time.sleep(1)
-            self.board = []
-            self.skill = 0
-            for _ in range(self.height):
-                self.board.append([0]*self.width)
+    # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
+    # def ultimate(self):
+    #     if self.skill == 100:
+    #         bomb = pygame.image.load("assets/images/bomb.jpg")
+    #         bomb = pygame.transform.scale(bomb, (350, 450))
+    #         bomb_sound = pygame.mixer.Sound('assets/sounds/bomb.wav')
+    #         self.screen.blit(bomb, (0, 0))
+    #         pygame.display.update()
+    #         bomb_sound.play()
+    #         time.sleep(1)
+    #         self.board = []
+    #         self.skill = 0
+    #         for _ in range(self.height):
+    #             self.board.append([0]*self.width)

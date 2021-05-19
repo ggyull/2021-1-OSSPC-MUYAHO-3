@@ -1,14 +1,5 @@
 import random
 
-# Tetrimino colors
-cyan = (69, 206, 204) #rgb(69, 206, 204) # I
-blue = (64, 111, 249) #rgb(64, 111, 249) # J
-orange = (253, 189, 53) #rgb(253, 189, 53) # L
-yellow = (246, 227, 90) #rgb(246, 227, 90) # O
-green = (98, 190, 68) #rgb(98, 190, 68) # S
-pink = (242, 64, 235) #rgb(242, 64, 235) # T
-red = (225, 13, 27) #rgb(225, 13, 27) # Z
-
 class Piece:
     O = (((0,0,0,0,0), (0,0,0,0,0),(0,0,1,1,0),(0,0,1,1,0),(0,0,0,0,0)),) * 4
 
@@ -44,7 +35,17 @@ class Piece:
 
     PIECES = {'O': O, 'I': I, 'L': L, 'J': J, 'Z': Z, 'S':S, 'T':T}
 
-    T_COLOR = [yellow ,cyan, orange, blue, red, green, pink, (55, 55, 55)]
+    # Tetrimino colors
+    cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
+    blue = (64, 111, 249)  # rgb(64, 111, 249) # J
+    orange = (253, 189, 53)  # rgb(253, 189, 53) # L
+    yellow = (246, 227, 90)  # rgb(246, 227, 90) # O
+    green = (98, 190, 68)  # rgb(98, 190, 68) # S
+    pink = (242, 64, 235)  # rgb(242, 64, 235) # T
+    red = (225, 13, 27)  # rgb(225, 13, 27) # Z
+
+    Block_COLOR = [yellow, cyan, orange, blue, red, green, pink, (55, 55, 55)]
+
 
     def __init__(self, piece_name=None):
         if piece_name:
