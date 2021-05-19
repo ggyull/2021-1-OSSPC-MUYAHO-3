@@ -41,7 +41,7 @@ class Board:
         block_sound = pygame.mixer.Sound("assets/sounds/Mp_jab.mp3")
         block_sound.play()
         self.nextpiece()
-        self.score += self.level
+        self.score += Score.stack_score
 
         #if self.level < Set.max_level:
         #    pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
@@ -132,11 +132,12 @@ class Board:
 
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
+        delete_number = len(remove)
         for y in remove:
             line_sound = pygame.mixer.Sound("assets/sounds/LOL.mp3")
             line_sound.play()
             self.delete_line(y)
-            self.score += Set.delete_score * self.level
+            self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
             if self.goal == Set.success_goal:
                 if self.level < Set.max_level:

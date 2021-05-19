@@ -145,3 +145,6 @@ class MN:
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
     margin_help=600    #HELP 화면
+
+class Score:
+    stack_score = 1 # 블록 쌓을 때 쌓이는 점수
