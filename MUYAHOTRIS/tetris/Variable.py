@@ -19,6 +19,7 @@ class Color:
     LIGHTBLUE = (20, 20, 175)
     YELLOW = (155, 155, 0)
     LIGHTYELLOW = (175, 175, 20)
+    DARKGRAY = (26, 26, 26)
 
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
@@ -82,6 +83,11 @@ class Draw:
     time_text_size = 18  # time 글씨 크기
     time_text_dx = 255 # time 글씨 x 위치
     time_text_dy = 430  # time 글씨 y 위치
+    time_minute_to_second = 60 #time 1분 60초 변환
+    time_zero = 0 #time 0 초기값
+    time_plus = 1 #time 1 증가량
+    time_play_word = 'PLAY ' #time 표시 PLAY 단어
+    time_colon = ' : ' #time 콜론 ex) 11 : 21
 
 
 class MN:

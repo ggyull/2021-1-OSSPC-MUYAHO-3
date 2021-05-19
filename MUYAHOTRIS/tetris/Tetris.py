@@ -1,4 +1,4 @@
-import pygame, sys, time
+import pygame, sys, time, datetime
 from pygame.locals import *
 from Board import *
 
@@ -73,6 +73,8 @@ class Tetris:
         start_sound = pygame.mixer.Sound('assets/sounds/Start.wav')
         start_sound.play()
         bgm = pygame.mixer.music.load('assets/sounds/new_bgm.mp3')
+        previous_time = int(time.time())
+
         while True:
             if self.check_reset:
                 self.board.newGame()
@@ -99,6 +101,6 @@ class Tetris:
                 elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
             # self.screen.fill(BLACK)
-            self.board.draw()
+            self.board.draw(previous_time)
             pygame.display.update()
             self.clock.tick(30)

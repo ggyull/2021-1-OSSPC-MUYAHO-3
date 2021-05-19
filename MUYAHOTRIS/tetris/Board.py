@@ -189,14 +189,20 @@ class Board:
                     pygame.draw.rect(self.screen, Color.BLACK,
                                     (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
 
-    def draw(self):
-        now = datetime.datetime.now()
-        nowTime = now.strftime('%H:%M:%S')
+    def draw(self,previous_time):
+        current_time = int(time.time())
+        play_time = current_time - previous_time
+        play_second = play_time % Draw.time_minute_to_second
+        play_minute = Draw.time_zero
+        if play_time >= Draw.time_minute_to_second:
+            play_minute += Draw.time_plus
+        play_time = Draw.time_play_word + str(play_minute) + Draw.time_colon + str(play_second)
+
         self.screen.fill(Color.BLACK)
         for x in range(self.width):
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
-                pygame.draw.rect(self.screen, (26,26,26),
+                pygame.draw.rect(self.screen, Color.DARKGRAY,
                  (x_pix, y_pix, self.block_size, self.block_size))
                 pygame.draw.rect(self.screen, Color.BLACK,
                  (x_pix, y_pix, self.block_size, self.block_size),1)
@@ -214,7 +220,7 @@ class Board:
         level_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.level_value_size).render(str(self.level), True, Color.BLACK)
         goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_text_size).render('GOAL', True, Color.BLACK)
         goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
-        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(str(nowTime), True, Color.BLACK)
+        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(play_time, True, Color.BLACK)
         self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
         self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
         self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
