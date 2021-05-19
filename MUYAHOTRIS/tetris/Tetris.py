@@ -35,6 +35,8 @@ class Tetris:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
             self.board.full_drop_piece()
+        elif event_key == K_q:
+            self.board.ultimate()
         elif event_key == K_m:
             self.music_on_off = not self.music_on_off
             if self.music_on_off:
@@ -62,15 +64,15 @@ class Tetris:
             self.board.HS(str(self.board.score))
 
 
-    def run(self):
+    def run(self, timer):
         pygame.init()
         icon = pygame.image.load('assets/images/icon.png')
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
-        pygame.time.set_timer(pygame.USEREVENT, 500)
+        pygame.time.set_timer(pygame.USEREVENT, timer)
         start_sound = pygame.mixer.Sound('assets/sounds/Start.wav')
         start_sound.play()
-        bgm = pygame.mixer.music.load('assets/sounds/bgm.mp3')
+        bgm = pygame.mixer.music.load('assets/sounds/new_bgm.mp3')
         while True:
             if self.check_reset:
                 self.board.newGame()
@@ -100,6 +102,3 @@ class Tetris:
             self.board.draw()
             pygame.display.update()
             self.clock.tick(30)
-
-if __name__ == "__main__":
-    Tetris().run()

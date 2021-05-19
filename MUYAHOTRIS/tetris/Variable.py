@@ -83,4 +83,65 @@ class Draw:
     time_text_dx = 255 # time 글씨 x 위치
     time_text_dy = 430  # time 글씨 y 위치
 
-    
+
+class MN:
+    infoObject = () #디스플레이 사이즈 받기
+    menu_display_w = 600
+    menu_display_h = 600
+    initial_mode = 0
+
+
+#메뉴 기본 테마 만들기
+
+    mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
+    mytheme.widget_font_color=(0,0,0)                         # 메뉴 위젯 폰트 컬러
+    mytheme.background_color = (0, 155, 0)                           # 메뉴 배경 설정
+    #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
+    mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
+    mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
+    mytheme.widget_font =pygame_menu.font.FONT_NEVIS                # 메뉴 폰트 설정
+    mytheme.widget_margin=(0,40)
+#HELP 메뉴 만들
+    mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
+    mytheme_help.background_color = (155,155,155)  # 메뉴 배경 설정
+    mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
+
+
+
+    rank_id_max=3           #랭크 ID 최대 이름 수
+    rank_max=5              # 랭크 보여주는 창 최대 갯수 -1
+    min_display_w =400      # 메뉴 최소 사이즈 가로
+    min_display_h =400      # 메뉴 최소 사이즈 세로
+    widget_center = 0
+    sleep_time = 0.3
+    initial_page = 'page0'  # 메뉴 시작 페이지
+
+    # 리사이징 시 변하는 비율 화면과 비례하는 비율
+    font_rate_main = 15          #메인 폰트 리사이징 비율
+    font_rate_sub = 20           #서브 폰트들 리사이징 비율
+    widget_rate_main = 15        #메인 화면 리젯들 사이 간격 비율
+    widget_rate_showpage = 30   #showpage 위젯 간격 비율
+    widget_rate_rank = 60       #rank페이지 위젯 간격 비율
+    rate_main=6                 #메인 위젯 시작 하는 위치 비율
+    rate_show=40                #show 위젯 시작 하는 위치 비율
+    rate_rank=30                #rank 위젝 시작 위치 비율
+    rate_help=1.25              #help 창 위젯 시작 위치 비율
+
+    help_h=756
+    help_w=756
+    help_screen=(756,756)
+
+    #폰트 사이즈
+    font_main = int((menu_display_h) / font_rate_main)   # 메뉴 기본 폰트 사이즈
+    font_sub = int((menu_display_h) / font_rate_sub)     # 메뉴 서브 폰트 사이즈
+
+    # 위젯 사이 간격
+    widget_margin_main = (0,int((menu_display_h)/widget_rate_main))         #  메인 화면
+    widget_margin_showpage=(0,int((menu_display_h)/widget_rate_showpage))   #게임 선택 랭킹 선택
+    widget_margin_rank=(0,int((menu_display_h)/widget_rate_rank))           # 랭크 보기 화면
+
+    #마진 시작 가로 세로  좌표
+    margin_main = int((menu_display_h)/rate_main)   # 메인 화면
+    margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
+    margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
+    margin_help=600    #HELP 화면
