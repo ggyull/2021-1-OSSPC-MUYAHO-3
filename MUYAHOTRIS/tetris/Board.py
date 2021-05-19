@@ -196,7 +196,7 @@ class Board:
         play_minute = Draw.time_zero
         if play_time >= Draw.time_minute_to_second:
             play_minute += Draw.time_plus
-        play_time = Draw.time_play_word + str(play_minute) + Draw.time_colon + str(play_second)
+        play_time = str(play_minute) + Draw.time_colon + str(play_second)
 
         self.screen.fill(Color.BLACK)
         for x in range(self.width):
@@ -220,6 +220,7 @@ class Board:
         level_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.level_value_size).render(str(self.level), True, Color.BLACK)
         goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_text_size).render('GOAL', True, Color.BLACK)
         goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
+        play_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.play_text_size).render('PLAY',True, Color.BLACK)
         time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(play_time, True, Color.BLACK)
         self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
         self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
@@ -228,6 +229,7 @@ class Board:
         self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
         self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
         self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
+        self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
         self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):

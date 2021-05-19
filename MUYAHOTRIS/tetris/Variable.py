@@ -80,13 +80,15 @@ class Draw:
     goal_value_size = 16  # goal 값 크기
     goal_value_dx = 255  # goal 값 x 위치
     goal_value_dy = 300  # goal 값 y 위치
-    time_text_size = 18  # time 글씨 크기
+    play_text_size = 18 # PLAY 글씨 크기
+    play_text_dx = 255 # PLAY 텍스트 값 x 위치
+    play_text_dy = 400 # PLAY 텍스트 값 y 위치
+    time_text_size = 16  # time 글씨 크기
     time_text_dx = 255 # time 글씨 x 위치
     time_text_dy = 430  # time 글씨 y 위치
     time_minute_to_second = 60 #time 1분 60초 변환
     time_zero = 0 #time 0 초기값
     time_plus = 1 #time 1 증가량
-    time_play_word = 'PLAY ' #time 표시 PLAY 단어
     time_colon = ' : ' #time 콜론 ex) 11 : 21
 
 
@@ -151,3 +153,11 @@ class MN:
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
     margin_help=600    #HELP 화면
+
+class Sound:
+    start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
+
+    bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
+
+class Image:
+    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
