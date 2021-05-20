@@ -80,7 +80,7 @@ class Tetris:
                     pygame.quit()
                     sys.exit()
                 elif event.type == KEYUP and event.key == K_p:
-                    self.screen.fill(BLACK)
+                    self.screen.fill(Color.BLACK)
                     pygame.mixer.music.stop()
                     self.board.pause()
                     pygame.mixer.music.play(-1, 0.0)
