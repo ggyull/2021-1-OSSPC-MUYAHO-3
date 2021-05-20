@@ -233,16 +233,9 @@ class Board:
         self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Paused', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press p to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
+        pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
+        pause_image = pygame.transform.scale(pause_image, (350, 450))       # Pause 이미지 350,450 크기 변환
+        self.screen.blit(pause_image,(0,0))                                 # Pause 이미지 시작 위치 좌상단 좌표
         pygame.display.update()
         running = True
         while running:

@@ -92,6 +92,15 @@ class Draw:
     time_colon = ' : ' #time 콜론 ex) 11 : 21
 
 
+#menu image
+main_image = pygame_menu.baseimage.BaseImage(
+    image_path='assets/images/main_image.png',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
+help_image = pygame_menu.baseimage.BaseImage(
+    image_path='assets/images/help_image.png',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
+
+
 class MN:
     infoObject = () #디스플레이 사이즈 받기
     menu_display_w = 600
@@ -102,8 +111,8 @@ class MN:
 #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme.widget_font_color=(0,0,0)                         # 메뉴 위젯 폰트 컬러
-    mytheme.background_color = (0, 155, 0)                           # 메뉴 배경 설정
+    mytheme.widget_font_color= Color.WHITE                        # 메뉴 위젯 폰트 컬러
+    mytheme.background_color = main_image                        # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
@@ -111,7 +120,7 @@ class MN:
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = (155,155,155)  # 메뉴 배경 설정
+    mytheme_help.background_color = help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
@@ -127,7 +136,7 @@ class MN:
     # 리사이징 시 변하는 비율 화면과 비례하는 비율
     font_rate_main = 15          #메인 폰트 리사이징 비율
     font_rate_sub = 20           #서브 폰트들 리사이징 비율
-    widget_rate_main = 15        #메인 화면 리젯들 사이 간격 비율
+    widget_rate_main = 30        #메인 화면 리젯들 사이 간격 비율
     widget_rate_showpage = 30   #showpage 위젯 간격 비율
     widget_rate_rank = 60       #rank페이지 위젯 간격 비율
     rate_main=6                 #메인 위젯 시작 하는 위치 비율
@@ -138,6 +147,7 @@ class MN:
     help_h=756
     help_w=756
     help_screen=(756,756)
+
 
     #폰트 사이즈
     font_main = int((menu_display_h) / font_rate_main)   # 메뉴 기본 폰트 사이즈
@@ -152,7 +162,7 @@ class MN:
     margin_main = int((menu_display_h)/rate_main)   # 메인 화면
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
-    margin_help=600    #HELP 화면
+    margin_help=500    #HELP 화면
 
 class Sound:
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
@@ -161,3 +171,7 @@ class Sound:
 
 class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
+    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
+
+
+
