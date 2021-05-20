@@ -32,26 +32,6 @@ class Tetris:
             else:
                 pygame.mixer.music.stop()
 
-    def HighScore(self):
-        try:
-            f = open('assets/save.txt', 'r')
-            l = f.read()
-            f.close()
-            if int(l) < self.board.score:
-                h_s = self.board.score
-                f = open('assets/save.txt', 'w')
-                f.write(str(self.board.score))
-                f.close()
-            else:
-                h_s = l
-            self.board.HS(str(h_s))
-        except:
-            f = open('assets/save.txt', 'w')
-            f.write(str(self.board.score))
-            f.close()
-            self.board.HS(str(self.board.score))
-
-
     def run(self, timer):
         pygame.init()
         icon = pygame.image.load(Image.icon_ref)
@@ -69,10 +49,9 @@ class Tetris:
                 self.check_reset = False
                 pygame.mixer.music.play(-1, 0.0)
             if self.board.game_over():
-                self.screen.fill(BLACK)
+                self.screen.fill(Color.BLACK)
                 pygame.mixer.music.stop()
                 self.board.GameOver()
-                self.HighScore()
                 self.check_reset = True
                 self.board.init_board()
             for event in pygame.event.get():
@@ -88,7 +67,6 @@ class Tetris:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
-            # self.screen.fill(BLACK)
             self.board.draw(previous_time)
             pygame.display.update()
             self.clock.tick(30)

@@ -36,8 +36,7 @@ class Menu:
         self.margin_help=MN.margin_help                       #help 페이지 back 위치
         self.margin_rank=MN.margin_rank                       #rank 페이지 x,y 위젯 시작 위치
 
-    def run(self):   # 실행하는 함
-        print('test2')
+    def run(self):   # 실행하는 함수
         self.page=MN.initial_page   #시작하면 기본 모드로 모드가 설정
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_main
