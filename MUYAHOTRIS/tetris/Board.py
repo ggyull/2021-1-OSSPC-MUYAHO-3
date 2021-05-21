@@ -148,7 +148,7 @@ class Board:
 
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
-
+    
     def draw_blocks(self, array2d, color=Color.WHITE, dx=0, dy=0):
         for y, row in enumerate(array2d):
             y += dy
