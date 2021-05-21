@@ -38,7 +38,7 @@ class Board:
             for x, block in enumerate(row):
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
-        block_sound = pygame.mixer.Sound("assets/sounds/Mp_jab.mp3")
+        block_sound = pygame.mixer.Sound(Sound.block_sound_ref)
         block_sound.play()
         self.nextpiece()
         self.score += self.level
@@ -247,16 +247,9 @@ class Board:
                     running = False
 
     def GameOver(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Game over', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
+        gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
+        gameover_image = pygame.transform.scale(gameover_image, (350, 450))  # Gameover 이미지 350,450 크기 변환
+        self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True
         while running:

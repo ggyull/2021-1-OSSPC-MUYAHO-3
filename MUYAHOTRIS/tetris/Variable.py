@@ -20,6 +20,7 @@ class Color:
     YELLOW = (155, 155, 0)
     LIGHTYELLOW = (175, 175, 20)
     DARKGRAY = (26, 26, 26)
+    MORELIGHTYELLOW = (255,247,22)
 
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
@@ -111,7 +112,7 @@ class MN:
 #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme.widget_font_color= Color.WHITE                        # 메뉴 위젯 폰트 컬러
+    mytheme.widget_font_color= Color.MORELIGHTYELLOW                        # 메뉴 위젯 폰트 컬러
     mytheme.background_color = main_image                        # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
@@ -166,12 +167,13 @@ class MN:
 
 class Sound:
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
-
+    block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
 class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
+    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
 
 
