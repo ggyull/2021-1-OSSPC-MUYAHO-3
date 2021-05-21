@@ -194,9 +194,7 @@ class Board:
         current_time = int(time.time())
         play_time = current_time - previous_time
         play_second = play_time % Draw.time_minute_to_second
-        play_minute = Draw.time_zero
-        if play_time >= Draw.time_minute_to_second:
-            play_minute += Draw.time_plus
+        play_minute = int(play_time / Draw.time_minute_to_second)
         play_time = str(play_minute) + Draw.time_colon + str(play_second)
 
         self.screen.fill(Color.BLACK)
@@ -269,8 +267,8 @@ class Board:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == KEYDOWN:
-                    running = False
+                #elif event.type == KEYDOWN:
+                running = False
 
     def HS(self, txt="no"):
         if txt != "no":
