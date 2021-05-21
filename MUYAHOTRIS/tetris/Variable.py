@@ -172,6 +172,7 @@ class Score:
 class Sound:
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
+    deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
 class Image:

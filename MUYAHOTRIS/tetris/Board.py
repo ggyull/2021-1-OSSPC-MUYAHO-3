@@ -134,7 +134,7 @@ class Board:
         remove = [y for y, row in enumerate(self.board) if all(row)]
         delete_number = len(remove)
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/LOL.mp3")
+            line_sound = pygame.mixer.Sound(deleteline_sound_ref)
             line_sound.play()
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
