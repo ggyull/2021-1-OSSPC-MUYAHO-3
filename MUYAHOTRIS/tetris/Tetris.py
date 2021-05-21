@@ -1,19 +1,7 @@
-import pygame, sys, time
+import pygame, sys, time, datetime
 from pygame.locals import *
 from Board import *
-
-#               R    G    B
-WHITE       = (255, 255, 255)
-GRAY        = (185, 185, 185)
-BLACK       = (  0,   0,   0)
-RED         = (155,   0,   0)
-LIGHTRED    = (175,  20,  20)
-GREEN       = (  0, 155,   0)
-LIGHTGREEN  = ( 20, 175,  20)
-BLUE        = (  0,   0, 155)
-LIGHTBLUE   = ( 20,  20, 175)
-YELLOW      = (155, 155,   0)
-LIGHTYELLOW = (175, 175,  20)
+from Variable import *
 
 class Tetris:
 
@@ -44,45 +32,26 @@ class Tetris:
             else:
                 pygame.mixer.music.stop()
 
-    def HighScore(self):
-        try:
-            f = open('assets/save.txt', 'r')
-            l = f.read()
-            f.close()
-            if int(l) < self.board.score:
-                h_s = self.board.score
-                f = open('assets/save.txt', 'w')
-                f.write(str(self.board.score))
-                f.close()
-            else:
-                h_s = l
-            self.board.HS(str(h_s))
-        except:
-            f = open('assets/save.txt', 'w')
-            f.write(str(self.board.score))
-            f.close()
-            self.board.HS(str(self.board.score))
-
-
     def run(self, timer):
         pygame.init()
-        icon = pygame.image.load('assets/images/icon.png')
+        icon = pygame.image.load(Image.icon_ref)
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
         pygame.time.set_timer(pygame.USEREVENT, timer)
-        start_sound = pygame.mixer.Sound('assets/sounds/Start.wav')
+        start_sound = pygame.mixer.Sound(Sound.start_sound_ref)
         start_sound.play()
-        bgm = pygame.mixer.music.load('assets/sounds/new_bgm.mp3')
+        bgm = pygame.mixer.music.load(Sound.bgm_ref)
+        previous_time = int(time.time())
+
         while True:
             if self.check_reset:
                 self.board.newGame()
                 self.check_reset = False
                 pygame.mixer.music.play(-1, 0.0)
             if self.board.game_over():
-                self.screen.fill(BLACK)
+                self.screen.fill(Color.BLACK)
                 pygame.mixer.music.stop()
                 self.board.GameOver()
-                self.HighScore()
                 self.check_reset = True
                 self.board.init_board()
             for event in pygame.event.get():
@@ -90,7 +59,7 @@ class Tetris:
                     pygame.quit()
                     sys.exit()
                 elif event.type == KEYUP and event.key == K_p:
-                    self.screen.fill(BLACK)
+                    self.screen.fill(Color.BLACK)
                     pygame.mixer.music.stop()
                     self.board.pause()
                     pygame.mixer.music.play(-1, 0.0)
@@ -98,7 +67,6 @@ class Tetris:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
-            # self.screen.fill(BLACK)
-            self.board.draw()
+            self.board.draw(previous_time)
             pygame.display.update()
             self.clock.tick(30)
