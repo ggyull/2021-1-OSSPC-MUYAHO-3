@@ -38,7 +38,7 @@ class Board:
             for x, block in enumerate(row):
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
-        block_sound = pygame.mixer.Sound("assets/sounds/Mp_jab.mp3")
+        block_sound = pygame.mixer.Sound(Sound.block_sound_ref)
         block_sound.play()
         self.nextpiece()
         self.score += Score.stack_score
@@ -190,14 +190,20 @@ class Board:
                     pygame.draw.rect(self.screen, Color.BLACK,
                                     (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
 
-    def draw(self):
-        now = datetime.datetime.now()
-        nowTime = now.strftime('%H:%M:%S')
+    def draw(self,previous_time):
+        current_time = int(time.time())
+        play_time = current_time - previous_time
+        play_second = play_time % Draw.time_minute_to_second
+        play_minute = Draw.time_zero
+        if play_time >= Draw.time_minute_to_second:
+            play_minute += Draw.time_plus
+        play_time = str(play_minute) + Draw.time_colon + str(play_second)
+
         self.screen.fill(Color.BLACK)
         for x in range(self.width):
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
-                pygame.draw.rect(self.screen, (26,26,26),
+                pygame.draw.rect(self.screen, Color.DARKGRAY,
                  (x_pix, y_pix, self.block_size, self.block_size))
                 pygame.draw.rect(self.screen, Color.BLACK,
                  (x_pix, y_pix, self.block_size, self.block_size),1)
@@ -215,7 +221,8 @@ class Board:
         level_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.level_value_size).render(str(self.level), True, Color.BLACK)
         goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_text_size).render('GOAL', True, Color.BLACK)
         goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
-        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(str(nowTime), True, Color.BLACK)
+        play_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.play_text_size).render('PLAY',True, Color.BLACK)
+        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(play_time, True, Color.BLACK)
         self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
         self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
         self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
@@ -223,19 +230,13 @@ class Board:
         self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
         self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
         self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
+        self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
         self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Paused', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press p to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
+        pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
+        pause_image = pygame.transform.scale(pause_image, (350, 450))       # Pause 이미지 350,450 크기 변환
+        self.screen.blit(pause_image,(0,0))                                 # Pause 이미지 시작 위치 좌상단 좌표
         pygame.display.update()
         running = True
         while running:
@@ -247,16 +248,9 @@ class Board:
                     running = False
 
     def GameOver(self):
-        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render('Game over', True, Color.GREEN)
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-        textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (175, 235)
-        self.screen.blit(textSurfaceObj, textRectObj)
-        self.screen.blit(textSurfaceObj2, textRectObj2)
+        gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
+        gameover_image = pygame.transform.scale(gameover_image, (350, 450))  # Gameover 이미지 350,450 크기 변환
+        self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True
         while running:

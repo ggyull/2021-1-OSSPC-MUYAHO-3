@@ -19,6 +19,8 @@ class Color:
     LIGHTBLUE = (20, 20, 175)
     YELLOW = (155, 155, 0)
     LIGHTYELLOW = (175, 175, 20)
+    DARKGRAY = (26, 26, 26)
+    MORELIGHTYELLOW = (255,247,22)
 
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
@@ -79,9 +81,25 @@ class Draw:
     goal_value_size = 16  # goal 값 크기
     goal_value_dx = 255  # goal 값 x 위치
     goal_value_dy = 300  # goal 값 y 위치
-    time_text_size = 18  # time 글씨 크기
+    play_text_size = 18 # PLAY 글씨 크기
+    play_text_dx = 255 # PLAY 텍스트 값 x 위치
+    play_text_dy = 400 # PLAY 텍스트 값 y 위치
+    time_text_size = 16  # time 글씨 크기
     time_text_dx = 255 # time 글씨 x 위치
     time_text_dy = 430  # time 글씨 y 위치
+    time_minute_to_second = 60 #time 1분 60초 변환
+    time_zero = 0 #time 0 초기값
+    time_plus = 1 #time 1 증가량
+    time_colon = ' : ' #time 콜론 ex) 11 : 21
+
+
+#menu image
+main_image = pygame_menu.baseimage.BaseImage(
+    image_path='assets/images/main_image.png',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
+help_image = pygame_menu.baseimage.BaseImage(
+    image_path='assets/images/help_image.png',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
 
 
 class MN:
@@ -94,8 +112,8 @@ class MN:
 #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme.widget_font_color=(0,0,0)                         # 메뉴 위젯 폰트 컬러
-    mytheme.background_color = (0, 155, 0)                           # 메뉴 배경 설정
+    mytheme.widget_font_color= Color.MORELIGHTYELLOW                        # 메뉴 위젯 폰트 컬러
+    mytheme.background_color = main_image                        # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
@@ -103,7 +121,7 @@ class MN:
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = (155,155,155)  # 메뉴 배경 설정
+    mytheme_help.background_color = help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
@@ -119,7 +137,7 @@ class MN:
     # 리사이징 시 변하는 비율 화면과 비례하는 비율
     font_rate_main = 15          #메인 폰트 리사이징 비율
     font_rate_sub = 20           #서브 폰트들 리사이징 비율
-    widget_rate_main = 15        #메인 화면 리젯들 사이 간격 비율
+    widget_rate_main = 30        #메인 화면 리젯들 사이 간격 비율
     widget_rate_showpage = 30   #showpage 위젯 간격 비율
     widget_rate_rank = 60       #rank페이지 위젯 간격 비율
     rate_main=6                 #메인 위젯 시작 하는 위치 비율
@@ -130,6 +148,7 @@ class MN:
     help_h=756
     help_w=756
     help_screen=(756,756)
+
 
     #폰트 사이즈
     font_main = int((menu_display_h) / font_rate_main)   # 메뉴 기본 폰트 사이즈
@@ -148,3 +167,15 @@ class MN:
 
 class Score:
     stack_score = 1 # 블록 쌓을 때 쌓이는 점수
+
+
+class Sound:
+    start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
+    block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
+    bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
+
+class Image:
+    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
+    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
+    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
+
