@@ -69,6 +69,7 @@ class Menu:
         self.menu.add_button(' back ', self.reset,font_size=self.font_sub)
 
     def show_game(self):
+
         self.page = 'page1'
 
         #Menu.click.play()

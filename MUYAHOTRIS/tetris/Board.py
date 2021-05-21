@@ -2,7 +2,9 @@ import pygame, sys, datetime, time
 from pygame.locals import *
 from Piece import *
 from Variable import *
-
+from Menu import *
+pygame.init()
+display = pygame.display.Info()
 
 class Board:
 
@@ -134,7 +136,7 @@ class Board:
         remove = [y for y, row in enumerate(self.board) if all(row)]
         delete_number = len(remove)
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/LOL.mp3")
+            line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
             line_sound.play()
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
@@ -249,7 +251,7 @@ class Board:
 
     def GameOver(self):
         gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
-        gameover_image = pygame.transform.scale(gameover_image, (350, 450))  # Gameover 이미지 350,450 크기 변환
+        gameover_image = pygame.transform.scale(gameover_image, self.screen.fill(Color.WHITE))  # Gameover 이미지 350,450 크기 변환
         self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True
@@ -269,8 +271,8 @@ class Board:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == KEYDOWN:
-                    running = False
+                #elif event.type == KEYDOWN:
+                running = False
 
     def HS(self, txt="no"):
         if txt != "no":
