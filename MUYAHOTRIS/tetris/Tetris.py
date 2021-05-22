@@ -6,7 +6,7 @@ from Variable import *
 class Tetris:
 
     def __init__(self):
-        self.screen = pygame.display.set_mode((350,450))
+        self.screen = pygame.display.set_mode((resize.init_display_w,resize.init_display_h))
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
         self.music_on_off = True
@@ -31,7 +31,7 @@ class Tetris:
                 pygame.mixer.music.play(-1, 0.0)
             else:
                 pygame.mixer.music.stop()
-    
+
     def run(self, timer):
         pygame.init()
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
@@ -73,6 +73,7 @@ class Tetris:
                     resize_h = event.h / resize.display_height
                     if event.h != resize.display_height:
                         pygame.display.set_mode((event.w,event.h),RESIZABLE)
+                        self.board.resizing()
 
             self.board.draw(previous_time)
             pygame.display.update()

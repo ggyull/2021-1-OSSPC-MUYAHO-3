@@ -16,6 +16,7 @@ class Menu:
         MN.infoObject = pygame.display.Info()
         self.tetris=Tetris()
         #self.database = Database()
+        (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()
         self.w = MN.menu_display_w
         self.h = MN.menu_display_h
         self.Mode = MN.initial_mode

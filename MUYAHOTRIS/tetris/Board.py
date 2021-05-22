@@ -299,6 +299,20 @@ class Board:
                     elif event.type == KEYDOWN:
                         running = False
 
+    def resizing(self):
+        infoObject = pygame.display.Info()
+        self.max_height = infoObject.current_h
+        pre_display_width = resize.display_width
+        pre_display_height = resize.display_height
+        pre_display_height = resize.display_height
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+        resize_width_rate = resize.display_width / pre_display_width
+        resize_height_rate = resize.display_height / pre_display_height
+        Size.block_x = Size.block_x * resize_width_rate
+        Size.block_y = Size.block_y * resize_height_rate
+        self.block_size = Size.block_x * Size.block_y
+        print(Size.block_x,Size.block_y,Size.block_size)
+        pygame.display.update()
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):
     #     if self.skill == 100:

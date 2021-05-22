@@ -2,6 +2,7 @@ import pygame
 import pygame_menu
 import random
 import os
+from pygame.locals import *
 
 class Error_Type:
     COLLIDE_ERROR = {'no_error': 0, 'right_wall': 1, 'left_wall': 2, 'bottom': 3, 'overlap': 4}
@@ -25,10 +26,13 @@ class Color:
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
     field_height = 20  # 맵 위에서 아래로 사이즈
-    block_size = 25 # 블록 사이즈(픽셀)
+    block_x = 5 # 블록 가로(픽셀)
+    block_y = 5 # 블록 세로(픽셀)
+    block_size = block_x * block_y # 블록 사이즈(픽셀)
     next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
 
 class Set:
+
     init_score = 0 # 초기 점수 세팅
     init_level = 1 # 초기 레벨
     init_goal = 5 # 레벨업을 하기 위한 조건
@@ -180,5 +184,7 @@ class Image:
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
 class resize:
-    (display_width, display_height) = (0,0)
+    init_display_w = 500 # 시작 디스플레이 가로
+    init_display_h = 600 # 시작 디스플레이 세로
+    (display_width, display_height) = (0,0) # 게임 창 크기
 
