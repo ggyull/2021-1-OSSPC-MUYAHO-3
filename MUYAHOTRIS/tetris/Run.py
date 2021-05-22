@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*- 
 from Menu import *
 from Tetris import *
-from Variable import Current_Size
 
 mymenu=Menu()
 mymenu.run()

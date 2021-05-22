@@ -236,8 +236,9 @@ class Board:
         self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
+        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
-        pause_image = pygame.transform.scale(pause_image, (350, 450))       # Pause 이미지 350,450 크기 변환
+        pause_image = pygame.transform.scale(pause_image, (resize.display_width,resize.display_height))       # Pause 이미지 350,450 크기 변환
         self.screen.blit(pause_image,(0,0))                                 # Pause 이미지 시작 위치 좌상단 좌표
         pygame.display.update()
         running = True
@@ -250,8 +251,9 @@ class Board:
                     running = False
 
     def GameOver(self):
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
-        gameover_image = pygame.transform.scale(gameover_image, self.screen.fill(Color.WHITE))  # Gameover 이미지 350,450 크기 변환
+        gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))  # Gameover 이미지 350,450 크기 변환
         self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True

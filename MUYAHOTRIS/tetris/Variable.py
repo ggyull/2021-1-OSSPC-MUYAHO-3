@@ -179,7 +179,6 @@ class Image:
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
-class Current_Size:
-    Current_w = 600
-    Current_h = 600
+class resize:
+    (display_width, display_height) = (0,0)
 
