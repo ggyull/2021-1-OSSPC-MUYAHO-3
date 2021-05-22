@@ -31,9 +31,10 @@ class Tetris:
                 pygame.mixer.music.play(-1, 0.0)
             else:
                 pygame.mixer.music.stop()
-
+    
     def run(self, timer):
         pygame.init()
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         icon = pygame.image.load(Image.icon_ref)
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
@@ -67,6 +68,12 @@ class Tetris:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
+                # 게임 중 리사이징
+                elif event.type == VIDEORESIZE:
+                    resize_h = event.h / resize.display_height
+                    if event.h != resize.display_height:
+                        pygame.display.set_mode((event.w,event.h),RESIZABLE)
+
             self.board.draw(previous_time)
             pygame.display.update()
             self.clock.tick(30)
