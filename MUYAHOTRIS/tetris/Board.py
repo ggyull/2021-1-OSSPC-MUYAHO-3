@@ -15,6 +15,12 @@ class Board:
         self.block_size = Size.block_size
         self.init_board()
         self.generate_piece()
+        self.block_x = Size.block_x
+        self.block_y = Size.block_y
+        self.screen_point1_x = Draw.screen_point1_x
+        self.screen_point1_y = Draw.screen_point1_y
+        self.screen_point2_x = Draw.screen_point2_x
+        self.screen_point2_y = Draw.screen_point2_y
 
     def init_board(self):
         self.board = []
@@ -123,10 +129,10 @@ class Board:
         self.try_rotate_piece(clockwise)
 
     def pos_to_pixel(self, x, y):
-        return self.block_size*x, self.block_size*(y-Set.hidden_lines)
+        return self.block_x*x, self.block_y*(y-Set.hidden_lines)
 
     def pos_to_pixel_next(self, x, y):
-        return self.block_size*x*Size.next_block_ratio, self.block_size*(y-Set.hidden_lines)*Size.next_block_ratio
+        return self.block_x*x*Size.next_block_ratio, self.block_y*(y-Set.hidden_lines)*Size.next_block_ratio
 
     def delete_line(self, y):
         for y in reversed(range(Set.first_line_index_y, y+Set.dummy_one)):
@@ -159,11 +165,10 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
-                                        (x_pix, y_pix, self.block_size, self.block_size))
+                                        (x_pix, y_pix, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                        (x_pix, y_pix, self.block_size, self.block_size), Set.block_border_thickness)
+                                        (x_pix, y_pix, self.block_x, self.block_y), Set.block_border_thickness)
 
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
@@ -178,9 +183,9 @@ class Board:
                         x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
 
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[Draw.Shadow_Color_index],
-                                         (x_s, y_s, self.block_size, self.block_size))
+                                         (x_s, y_s, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                         (x_s, y_s, self.block_size, self.block_size),Set.block_border_thickness)
+                                         (x_s, y_s, self.block_x, self.block_y),Set.block_border_thickness)
 
     def draw_next_piece(self, array2d, color=Color.WHITE):
         for y, row in enumerate(array2d):
@@ -188,9 +193,9 @@ class Board:
                 if block:
                     x_pix, y_pix = self.pos_to_pixel_next(x,y)
                     pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
-                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5))
+                                    (x_pix+240, y_pix+65, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))
                     pygame.draw.rect(self.screen, Color.BLACK,
-                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
+                                    (x_pix+240, y_pix+65, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap),1)
 
     def draw(self,previous_time):
         current_time = int(time.time())
@@ -206,15 +211,15 @@ class Board:
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
                 pygame.draw.rect(self.screen, Color.DARKGRAY,
-                 (x_pix, y_pix, self.block_size, self.block_size))
+                 (x_pix, y_pix, self.block_x, self.block_y))
                 pygame.draw.rect(self.screen, Color.BLACK,
-                 (x_pix, y_pix, self.block_size, self.block_size),1)
+                 (x_pix, y_pix, self.block_x, self.block_y),1)
 
         self.draw_shadow(self.piece, dx=self.piece_x,dy=self.piece_y) #그림자 기능 추가
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
 
-        pygame.draw.rect(self.screen, Color.WHITE, Rect(Draw.screen_point1_x, Draw.screen_point1_y, Draw.screen_point2_x, Draw.screen_point2_y)) # 게임시 옆에 흰색 바탕 관련 코드
+        pygame.draw.rect(self.screen, Color.WHITE, Rect(self.screen_point1_x, self.screen_point1_y, self.screen_point2_x, self.screen_point2_y)) # 게임시 옆에 흰색 바탕 관련 코드
         self.draw_next_piece(self.next_piece)
         next_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.next_text_size).render('NEXT', True, Color.BLACK)
         score_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.score_text_size).render('SCORE', True, Color.BLACK)
@@ -304,15 +309,17 @@ class Board:
         self.max_height = infoObject.current_h
         pre_display_width = resize.display_width
         pre_display_height = resize.display_height
-        pre_display_height = resize.display_height
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         resize_width_rate = resize.display_width / pre_display_width
         resize_height_rate = resize.display_height / pre_display_height
-        Size.block_x = Size.block_x * resize_width_rate
-        Size.block_y = Size.block_y * resize_height_rate
+        self.block_x = resize.display_width * 0.7 * 0.1
+        self.block_y = resize.display_height * 1 * (1.0/18.0)
         self.block_size = Size.block_x * Size.block_y
-        print(Size.block_x,Size.block_y,Size.block_size)
+        self.screen_point1_x = resize.display_width * 0.7
+        self.screen_point2_x = resize.display_width
+        self.screen_point2_y = resize.display_height
         pygame.display.update()
+
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):
     #     if self.skill == 100:

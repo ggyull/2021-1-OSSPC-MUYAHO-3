@@ -26,10 +26,11 @@ class Color:
 class Size:
     field_width = 10  # 맵의 좌에서 우로 사이즈
     field_height = 20  # 맵 위에서 아래로 사이즈
-    block_x = 5 # 블록 가로(픽셀)
-    block_y = 5 # 블록 세로(픽셀)
+    block_x = 25 # 블록 가로(픽셀)
+    block_y = 25 # 블록 세로(픽셀)
     block_size = block_x * block_y # 블록 사이즈(픽셀)
     next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
+    next_block_gap = 0.55 # 다음블록 픽셀 사이 간격
 
 class Set:
 
@@ -185,6 +186,6 @@ class Image:
 
 class resize:
     init_display_w = 500 # 시작 디스플레이 가로
-    init_display_h = 600 # 시작 디스플레이 세로
+    init_display_h = 450 # 시작 디스플레이 세로
     (display_width, display_height) = (0,0) # 게임 창 크기
 
