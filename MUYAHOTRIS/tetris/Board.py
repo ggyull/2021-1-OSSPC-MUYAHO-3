@@ -21,6 +21,7 @@ class Board:
         self.screen_point1_y = Draw.screen_point1_y
         self.screen_point2_x = Draw.screen_point2_x
         self.screen_point2_y = Draw.screen_point2_y
+        self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*Draw.white_text_rate #하얀부분 글씨
 
     def init_board(self):
         self.board = []
@@ -156,7 +157,7 @@ class Board:
 
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
-    
+
     def draw_blocks(self, array2d, color=Color.WHITE, dx=0, dy=0):
         for y, row in enumerate(array2d):
             y += dy
@@ -193,9 +194,9 @@ class Board:
                 if block:
                     x_pix, y_pix = self.pos_to_pixel_next(x,y)
                     pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
-                                    (x_pix+240, y_pix+65, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))
+                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))# 넥스트블록
                     pygame.draw.rect(self.screen, Color.BLACK,
-                                    (x_pix+240, y_pix+65, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap),1)
+                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap),1)
 
     def draw(self,previous_time):
         current_time = int(time.time())
@@ -230,15 +231,24 @@ class Board:
         goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
         play_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.play_text_size).render('PLAY',True, Color.BLACK)
         time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(play_time, True, Color.BLACK)
-        self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
-        self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
-        self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
-        self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
-        self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
-        self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
-        self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
-        self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
-        self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
+        self.screen.blit(next_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.next_text_dy))
+        self.screen.blit(score_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.score_text_dy))
+        self.screen.blit(score_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.score_value_dy))
+        self.screen.blit(level_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.level_text_dy))
+        self.screen.blit(level_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.level_value_dy))
+        self.screen.blit(goal_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_text_dy))
+        self.screen.blit(goal_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_value_dy))
+        self.screen.blit(play_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.play_text_dy))
+        self.screen.blit(time_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.time_text_dy))
+        #self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
+        #self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
+        #self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
+        #self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
+        #self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
+        #self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
+        #self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
+        #self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
+        #self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
@@ -318,7 +328,9 @@ class Board:
         self.screen_point1_x = resize.display_width * 0.7
         self.screen_point2_x = resize.display_width
         self.screen_point2_y = resize.display_height
+        self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*0.1
         pygame.display.update()
+
 
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):

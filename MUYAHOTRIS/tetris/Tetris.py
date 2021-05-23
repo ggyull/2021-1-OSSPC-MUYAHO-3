@@ -32,13 +32,13 @@ class Tetris:
             else:
                 pygame.mixer.music.stop()
 
-    def run(self, timer):
+    def run(self, mode, mode_name):
         pygame.init()
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         icon = pygame.image.load(Image.icon_ref)
         pygame.display.set_icon(icon)
-        pygame.display.set_caption('Tetris')
-        pygame.time.set_timer(pygame.USEREVENT, timer)
+        pygame.display.set_caption('MUYAHOTRIS ' + mode_name)
+        pygame.time.set_timer(pygame.USEREVENT, mode)
         start_sound = pygame.mixer.Sound(Sound.start_sound_ref)
         start_sound.play()
         bgm = pygame.mixer.music.load(Sound.bgm_ref)

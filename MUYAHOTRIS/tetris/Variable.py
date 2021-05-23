@@ -65,33 +65,35 @@ class Draw:
     screen_point1_y = 0  # 흰색 스크린 시작점 y 위치
     screen_point2_x = 350  # 흰색 스크린 종료점 x 위치
     screen_point2_y = 450  # 흰색 스크린 종료점 y 위치
+    white_text_rate = 0.1
+    next_block_y = 65/450
     next_text_size = 18  # Next 글씨 크기
     next_text_dx = 255 # Next 글씨 x위치
-    next_text_dy = 20  # Next 글씨 y위치
+    next_text_dy = 20/450  # Next 글씨 y위치
     score_text_size = 18  # score 글씨 크기
     score_text_dx = 255 # score 글씨 x 위치
-    score_text_dy = 120  # score 글씨 y 위치
+    score_text_dy = 120/450  # score 글씨 y 위치
     score_value_size = 16  # score 값 크기
     score_value_dx = 255 # score 값 x 위치
-    score_value_dy = 145  # score 값 y 위치
+    score_value_dy = 145/450  # score 값 y 위치
     level_text_size = 18  # level 글씨 크기
     level_text_dx = 255 # level 글씨 x 위치
-    level_text_dy = 200  # level 글씨 y 위치
+    level_text_dy = 200/450  # level 글씨 y 위치
     level_value_size = 16  # level 값 크기
     level_value_dx = 255 # level 값 x 위치
-    level_value_dy = 225  # level 값 y 위치
+    level_value_dy = 225/450  # level 값 y 위치
     goal_text_size = 18  # goal 글씨 크기
     goal_text_dx = 255  # goal 글씨 x 위치
-    goal_text_dy = 275  # goal 글씨 y 위치
+    goal_text_dy = 275/450  # goal 글씨 y 위치
     goal_value_size = 16  # goal 값 크기
     goal_value_dx = 255  # goal 값 x 위치
-    goal_value_dy = 300  # goal 값 y 위치
+    goal_value_dy = 300/450  # goal 값 y 위치
     play_text_size = 18 # PLAY 글씨 크기
     play_text_dx = 255 # PLAY 텍스트 값 x 위치
-    play_text_dy = 400 # PLAY 텍스트 값 y 위치
+    play_text_dy = 400/450 # PLAY 텍스트 값 y 위치
     time_text_size = 16  # time 글씨 크기
     time_text_dx = 255 # time 글씨 x 위치
-    time_text_dy = 430  # time 글씨 y 위치
+    time_text_dy = 430/450  # time 글씨 y 위치
     time_minute_to_second = 60 #time 1분 60초 변환
     time_zero = 0 #time 0 초기값
     time_plus = 1 #time 1 증가량
@@ -122,7 +124,7 @@ class MN:
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
-    mytheme.widget_font =pygame_menu.font.FONT_NEVIS                # 메뉴 폰트 설정
+    mytheme.widget_font =pygame_menu.font.FONT_MUNRO                # 메뉴 폰트 설정
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
@@ -150,6 +152,8 @@ class MN:
     rate_rank=30                #rank 위젝 시작 위치 비율
     rate_help=1.25              #help 창 위젯 시작 위치 비율
 
+
+
     help_h=756
     help_w=756
     help_screen=(756,756)
@@ -170,6 +174,10 @@ class MN:
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
     margin_help=600    #HELP 화면
 
+    #게임 모드 선택 시 속도
+    start_easy = 500
+    start_hard = 200
+
 class Score:
     stack_score = 1 # 블록 쌓을 때 쌓이는 점수
 
@@ -185,7 +193,6 @@ class Image:
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
 class resize:
-    init_display_w = 500 # 시작 디스플레이 가로
-    init_display_h = 450 # 시작 디스플레이 세로
+    init_display_w = 600 # 시작 디스플레이 가로
+    init_display_h = 600 # 시작 디스플레이 세로
     (display_width, display_height) = (0,0) # 게임 창 크기
-
