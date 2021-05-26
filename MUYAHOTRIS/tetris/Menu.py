@@ -52,6 +52,7 @@ class Menu:
         self.menu.add_button('  Help  ', self.help, font_size=self.font_main)
         self.menu.add_button('        Exit         ', pygame_menu.events.EXIT,font_size=self.font_main)
 
+
     def reset(self):  ## 뒤로 갈때 보여줄 목록들
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
         self.menu = pygame_menu.Menu(self.h, self.w, '', theme=self.mytheme)

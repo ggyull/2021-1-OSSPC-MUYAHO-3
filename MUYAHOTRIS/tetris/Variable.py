@@ -3,12 +3,18 @@ import pygame_menu
 import random
 import os
 from pygame.locals import *
+class Num:
+    Zero = 0 # 0
+    One = 1 # 1
+    Two = 2 # 2
+    Three = 3 # 3
+    Four = 4 # 4
 
 class Error_Type:
     COLLIDE_ERROR = {'no_error': 0, 'right_wall': 1, 'left_wall': 2, 'bottom': 3, 'overlap': 4}
 
 class Color:
-    #               R    G    B
+    #         R    G    B
     WHITE = (255, 255, 255)
     GRAY = (185, 185, 185)
     BLACK = (0, 0, 0)
@@ -33,7 +39,7 @@ class Size:
     next_block_gap = 0.55 # 다음블록 픽셀 사이 간격
 
 class Set:
-
+    framerate = 30 # 프레임 설정
     init_score = 0 # 초기 점수 세팅
     init_level = 1 # 초기 레벨
     init_goal = 5 # 레벨업을 하기 위한 조건
@@ -47,7 +53,6 @@ class Set:
     plus_two = 2 # 블록 두칸 이동 상수
     hidden_lines = 2 # 맨위의 숨겨진 줄수
     first_line_index_y = 2 # 맨 윗줄 y 인덱스
-    dummy_one = 1 # 범위를 맞춰주기 위한 1
     delete_score = 10 # 줄 삭제시 얻는 점수
     delete_goal = 1 # 줄 삭제시 지워지는 목표
     success_goal = 0 # 목표 달성 상수
@@ -56,7 +61,6 @@ class Set:
     board_first = 0 # 보드의 첫번째 줄(안보이는 줄, 블록 위치는 여기서부터)
     board_second = 1 # 보드의 두번째 줄(안보이는 줄)
     board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
-    block_border_thickness = 1 # 블록 테두리 두께
 
 class Draw:
     Shape_Color_Match = 1 # 블록을 채우는 상수와 Block_COLOR의 인덱스를 맞춰주기 위한 1(Board에서 빼줌)
@@ -98,7 +102,7 @@ class Draw:
     time_zero = 0 #time 0 초기값
     time_plus = 1 #time 1 증가량
     time_colon = ' : ' #time 콜론 ex) 11 : 21
-
+    border_thickness = 1 # 블록 경계 두께
 
 #menu image
 main_image = pygame_menu.baseimage.BaseImage(
@@ -111,29 +115,30 @@ help_image = pygame_menu.baseimage.BaseImage(
 
 class MN:
     infoObject = () #디스플레이 사이즈 받기
-    menu_display_w = 600
-    menu_display_h = 600
+    menu_display_w = 357
+    menu_display_h = 450
     initial_mode = 0
 
 
 #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
-    mytheme.widget_font_color= Color.MORELIGHTYELLOW                        # 메뉴 위젯 폰트 컬러
-    mytheme.background_color = main_image                        # 메뉴 배경 설정
+    mytheme.widget_font_color= Color.MORELIGHTYELLOW                # 메뉴 위젯 폰트 컬러
+    mytheme.background_color = main_image                           # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
     mytheme.widget_font =pygame_menu.font.FONT_MUNRO                # 메뉴 폰트 설정
     mytheme.widget_margin=(0,40)
-#HELP 메뉴 만들
+
+    #HELP 메뉴 만들기
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
     mytheme_help.background_color = help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
 
-    rank_id_max=3           #랭크 ID 최대 이름 수
+    rank_id_max=3           # 랭크 ID 최대 이름 수
     rank_max=5              # 랭크 보여주는 창 최대 갯수 -1
     min_display_w =400      # 메뉴 최소 사이즈 가로
     min_display_h =400      # 메뉴 최소 사이즈 세로
@@ -142,15 +147,15 @@ class MN:
     initial_page = 'page0'  # 메뉴 시작 페이지
 
     # 리사이징 시 변하는 비율 화면과 비례하는 비율
-    font_rate_main = 15          #메인 폰트 리사이징 비율
-    font_rate_sub = 20           #서브 폰트들 리사이징 비율
-    widget_rate_main = 30        #메인 화면 리젯들 사이 간격 비율
-    widget_rate_showpage = 30   #showpage 위젯 간격 비율
-    widget_rate_rank = 60       #rank페이지 위젯 간격 비율
-    rate_main=6                 #메인 위젯 시작 하는 위치 비율
-    rate_show=40                #show 위젯 시작 하는 위치 비율
-    rate_rank=30                #rank 위젝 시작 위치 비율
-    rate_help=1.25              #help 창 위젯 시작 위치 비율
+    font_rate_main = 15         # 메인 폰트 리사이징 비율
+    font_rate_sub = 20          # 서브 폰트들 리사이징 비율
+    widget_rate_main = 30       # 메인 화면 리젯들 사이 간격 비율
+    widget_rate_showpage = 30   # showpage 위젯 간격 비율
+    widget_rate_rank = 60       # rank페이지 위젯 간격 비율
+    rate_main=6                 # 메인 위젯 시작 하는 위치 비율
+    rate_show=40                # show 위젯 시작 하는 위치 비율
+    rate_rank=30                # rank 위젝 시작 위치 비율
+    rate_help=1.25              # help 창 위젯 시작 위치 비율
 
 
 
@@ -193,6 +198,13 @@ class Image:
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
 class resize:
-    init_display_w = 600 # 시작 디스플레이 가로
-    init_display_h = 600 # 시작 디스플레이 세로
+    init_display_w = 357 # 시작 디스플레이 가로
+    init_display_h = 450 # 시작 디스플레이 세로
+    init_image_point = (0,0) # 초기 이미지 시작점
     (display_width, display_height) = (0,0) # 게임 창 크기
+    block_board_rate = 0.7 # 보드판이 차지하는 width 비율
+    score_board_rate = 0.3 # 스코어보드가 차지하는 width 비율
+    text_init_rate = 0.1 # 스코어보드에서 글씨가 시작되는 곳의 비율
+    one_block_height_ratio = 1/18 # 한 블록 세로가 전체에서 차지하는 비율
+    min_display_w = 357 # 최소 디스플레이 가로
+    min_display_h = 450 # 최소 디스플레이 세로

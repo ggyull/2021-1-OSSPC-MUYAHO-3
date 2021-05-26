@@ -1,4 +1,5 @@
 import random
+from Variable import *
 
 class Piece:
     O = (((0,0,0,0,0), (0,0,0,0,0),(0,0,1,1,0),(0,0,1,1,0),(0,0,0,0,0)),) * 4
@@ -52,7 +53,7 @@ class Piece:
             self.piece_name = piece_name
         else:
             self.piece_name = random.choice(list(Piece.PIECES.keys()))
-        self.rotation = 0
+        self.rotation = Num.Zero
         self.array2d = Piece.PIECES[self.piece_name][self.rotation]
 
     def __iter__(self):
@@ -61,7 +62,7 @@ class Piece:
 
     def rotate(self, clockwise=True):
         if clockwise:
-            self.rotation = (self.rotation + 1) % 4
+            self.rotation = (self.rotation + Num.One) % Num.Four
         else:
-            self.rotation = (self.rotation - 1) % 4
+            self.rotation = (self.rotation - Num.One) % Num.Four
         self.array2d = Piece.PIECES[self.piece_name][self.rotation]

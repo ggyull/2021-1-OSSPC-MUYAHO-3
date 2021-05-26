@@ -16,9 +16,9 @@ class Tetris:
         if event_key == K_DOWN or event_key == K_s:
             self.board.drop_piece()
         elif event_key == K_LEFT or event_key == K_a:
-            self.board.move_piece(dx=-1, dy=0)
+            self.board.move_piece(dx=-Num.One, dy=Num.Zero)
         elif event_key == K_RIGHT or event_key == K_d:
-            self.board.move_piece(dx=1, dy=0)
+            self.board.move_piece(dx=Num.One, dy=Num.Zero)
         elif event_key == K_UP or event_key == K_w:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
@@ -28,7 +28,7 @@ class Tetris:
         elif event_key == K_m:
             self.music_on_off = not self.music_on_off
             if self.music_on_off:
-                pygame.mixer.music.play(-1, 0.0)
+                pygame.mixer.music.play(-Num.One, Num.Zero.Num.Zero)
             else:
                 pygame.mixer.music.stop()
 
@@ -48,7 +48,7 @@ class Tetris:
             if self.check_reset:
                 self.board.newGame()
                 self.check_reset = False
-                pygame.mixer.music.play(-1, 0.0)
+                pygame.mixer.music.play(-Num.One, Num.Zero)
             if self.board.game_over():
                 self.screen.fill(Color.BLACK)
                 pygame.mixer.music.stop()
@@ -63,18 +63,17 @@ class Tetris:
                     self.screen.fill(Color.BLACK)
                     pygame.mixer.music.stop()
                     self.board.pause()
-                    pygame.mixer.music.play(-1, 0.0)
+                    pygame.mixer.music.play(-Num.One, Num.Zero)
                 elif event.type == KEYDOWN:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
                 # 게임 중 리사이징
                 elif event.type == VIDEORESIZE:
-                    resize_h = event.h / resize.display_height
-                    if event.h != resize.display_height:
-                        pygame.display.set_mode((event.w,event.h),RESIZABLE)
+                    if event.h != resize.display_height or event.w != resize.display_width:
                         self.board.resizing()
+                        pygame.display.set_mode((resize.display_width, resize.display_height), RESIZABLE)
 
             self.board.draw(previous_time)
             pygame.display.update()
-            self.clock.tick(30)
+            self.clock.tick(Set.framerate)

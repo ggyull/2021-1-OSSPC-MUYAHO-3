@@ -50,6 +50,7 @@ while True:
             elif mymenu.page=='page7':
                 mymenu.help()
 
+
     if mymenu.menu.is_enabled():
         mymenu.menu.update(events)
         mymenu.menu.draw(mymenu.surface)

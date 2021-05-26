@@ -136,8 +136,8 @@ class Board:
         return self.block_x*x*Size.next_block_ratio, self.block_y*(y-Set.hidden_lines)*Size.next_block_ratio
 
     def delete_line(self, y):
-        for y in reversed(range(Set.first_line_index_y, y+Set.dummy_one)):
-            self.board[y] = list(self.board[y-1])
+        for y in reversed(range(Set.first_line_index_y, y+Num.One)):
+            self.board[y] = list(self.board[y-Num.One])
 
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
@@ -158,7 +158,7 @@ class Board:
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
 
-    def draw_blocks(self, array2d, color=Color.WHITE, dx=0, dy=0):
+    def draw_blocks(self, array2d, color=Color.WHITE, dx=Num.Zero, dy=Num.Zero):
         for y, row in enumerate(array2d):
             y += dy
             if y >= Set.board_third and y < self.height:
@@ -169,7 +169,7 @@ class Board:
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
                                         (x_pix, y_pix, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                        (x_pix, y_pix, self.block_x, self.block_y), Set.block_border_thickness)
+                                        (x_pix, y_pix, self.block_x, self.block_y), Draw.border_thickness)
 
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
@@ -179,14 +179,14 @@ class Board:
                     x += dx
                     if block:
                         tmp = Set.plus_one
-                        while self.can_move_piece(0,tmp):
+                        while self.can_move_piece(Num.Zero,tmp):
                             tmp += Set.plus_one
-                        x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
+                        x_s, y_s = self.pos_to_pixel(x,y + tmp - Num.One)
 
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[Draw.Shadow_Color_index],
                                          (x_s, y_s, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                         (x_s, y_s, self.block_x, self.block_y),Set.block_border_thickness)
+                                         (x_s, y_s, self.block_x, self.block_y),Draw.border_thickness)
 
     def draw_next_piece(self, array2d, color=Color.WHITE):
         for y, row in enumerate(array2d):
@@ -196,7 +196,7 @@ class Board:
                     pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
                                     (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))# 넥스트블록
                     pygame.draw.rect(self.screen, Color.BLACK,
-                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap),1)
+                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap), Draw.border_thickness)
 
     def draw(self,previous_time):
         current_time = int(time.time())
@@ -254,7 +254,7 @@ class Board:
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
         pause_image = pygame.transform.scale(pause_image, (resize.display_width,resize.display_height))       # Pause 이미지 350,450 크기 변환
-        self.screen.blit(pause_image,(0,0))                                 # Pause 이미지 시작 위치 좌상단 좌표
+        self.screen.blit(pause_image,resize.init_image_point)                                 # Pause 이미지 시작 위치 좌상단 좌표
         pygame.display.update()
         running = True
         while running:
@@ -268,8 +268,8 @@ class Board:
     def GameOver(self):
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
-        gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))  # Gameover 이미지 350,450 크기 변환
-        self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
+        gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))
+        self.screen.blit(gameover_image, resize.init_image_point)  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True
         while running:
@@ -317,18 +317,20 @@ class Board:
     def resizing(self):
         infoObject = pygame.display.Info()
         self.max_height = infoObject.current_h
-        pre_display_width = resize.display_width
-        pre_display_height = resize.display_height
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
-        resize_width_rate = resize.display_width / pre_display_width
-        resize_height_rate = resize.display_height / pre_display_height
-        self.block_x = resize.display_width * 0.7 * 0.1
-        self.block_y = resize.display_height * 1 * (1.0/18.0)
+        if resize.display_width <= resize.min_display_w:
+            resize.display_width = resize.min_display_w
+        if resize.display_height <= resize.min_display_h:
+            resize.display_height = resize.min_display_h
+        block_board_width = resize.display_width * resize.block_board_rate
+        score_board_width = resize.display_width * resize.score_board_rate
+        self.block_x = block_board_width * resize.text_init_rate
+        self.block_y = resize.display_height * resize.one_block_height_ratio
         self.block_size = Size.block_x * Size.block_y
-        self.screen_point1_x = resize.display_width * 0.7
+        self.screen_point1_x = block_board_width
         self.screen_point2_x = resize.display_width
         self.screen_point2_y = resize.display_height
-        self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*0.1
+        self.screen_widget_x = block_board_width + (score_board_width) * resize.text_init_rate
         pygame.display.update()
 
 
