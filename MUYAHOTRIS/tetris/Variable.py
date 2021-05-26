@@ -3,6 +3,7 @@ import pygame_menu
 import random
 import os
 from pygame.locals import *
+
 class Num:
     Zero = 0 # 0
     One = 1 # 1
@@ -104,14 +105,19 @@ class Draw:
     time_colon = ' : ' #time 콜론 ex) 11 : 21
     border_thickness = 1 # 블록 경계 두께
 
-#menu image
-main_image = pygame_menu.baseimage.BaseImage(
-    image_path='assets/images/main_image.png',
-    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
-help_image = pygame_menu.baseimage.BaseImage(
-    image_path='assets/images/help_image.png',
-    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
 
+
+
+class Image:
+    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
+    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
+    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
+    main_image = pygame_menu.baseimage.BaseImage(
+        image_path='assets/images/main_image.png',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
+    help_image = pygame_menu.baseimage.BaseImage(
+        image_path='assets/images/help_image.png',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
 
 class MN:
     infoObject = () #디스플레이 사이즈 받기
@@ -120,11 +126,11 @@ class MN:
     initial_mode = 0
 
 
-#메뉴 기본 테마 만들기
+    #메뉴 기본 테마 만들기
 
     mytheme=pygame_menu.themes.THEME_ORANGE.copy()                  # 메뉴 기본 테마 설정
     mytheme.widget_font_color= Color.MORELIGHTYELLOW                # 메뉴 위젯 폰트 컬러
-    mytheme.background_color = main_image                           # 메뉴 배경 설정
+    mytheme.background_color = Image.main_image                           # 메뉴 배경 설정
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
@@ -133,7 +139,7 @@ class MN:
 
     #HELP 메뉴 만들기
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = help_image  # 메뉴 배경 설정
+    mytheme_help.background_color = Image.help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
@@ -192,10 +198,6 @@ class Sound:
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
-class Image:
-    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
-    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
-    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
 
 class resize:
     init_display_w = 357 # 시작 디스플레이 가로
