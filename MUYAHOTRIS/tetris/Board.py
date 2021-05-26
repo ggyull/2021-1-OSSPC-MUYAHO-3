@@ -3,6 +3,7 @@ from pygame.locals import *
 from Piece import *
 from Variable import *
 from Menu import *
+from Level import *
 pygame.init()
 display = pygame.display.Info()
 
@@ -31,6 +32,10 @@ class Board:
         self.skill = Set.init_skill
         for _ in range(self.height):
             self.board.append([Set.empty_board]*self.width)
+
+
+
+
 
     def generate_piece(self):
         self.piece = Piece()
@@ -152,8 +157,14 @@ class Board:
                 if self.level < Set.max_level:
                     self.level += Set.plus_level
                     self.goal = Set.init_goal * self.level
+                    self.levelup()
+                    if self.level < Set.max_level:
+                        self.board = []
+                        for i in range(self.height):
+                            self.board.append(Level.lv2[i])
                 else:
                     self.goal = '-'
+
 
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
@@ -328,13 +339,23 @@ class Board:
         self.screen_point1_x = resize.display_width * 0.7
         self.screen_point2_x = resize.display_width
         self.screen_point2_y = resize.display_height
-        self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*0.1
+        self.screen_widget_x = self.screen_point1_x+(resize.display_width*0.3)*0.1
         pygame.display.update()
 
+    def levelup(self): #레벨 업 시 효과
+        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
+        levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
+        levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
+        levelup_sound = pygame.mixer.Sound(Sound.start_sound_ref)
+        self.screen.blit(levelup_image, (0, 0))
+        pygame.display.update()
+        levelup_sound.play()
+        time.sleep(1)
 
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):
     #     if self.skill == 100:
+
     #         bomb = pygame.image.load("assets/images/bomb.jpg")
     #         bomb = pygame.transform.scale(bomb, (350, 450))
     #         bomb_sound = pygame.mixer.Sound('assets/sounds/bomb.wav')

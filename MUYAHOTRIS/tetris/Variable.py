@@ -128,6 +128,7 @@ class MN:
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
+    mytheme_help.widget_font = pygame_menu.font.FONT_MUNRO
     mytheme_help.background_color = help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
@@ -172,7 +173,7 @@ class MN:
     margin_main = int((menu_display_h)/rate_main)   # 메인 화면
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
-    margin_help=600    #HELP 화면
+    margin_help=380    #HELP 화면
 
     #게임 모드 선택 시 속도
     start_easy = 500
@@ -191,8 +192,9 @@ class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
+    levelup_image_ref = 'assets/images/pause_image.png' #levelup 이미지 주소
 
 class resize:
-    init_display_w = 600 # 시작 디스플레이 가로
-    init_display_h = 600 # 시작 디스플레이 세로
+    init_display_w = 350 # 시작 디스플레이 가로
+    init_display_h = 450# 시작 디스플레이 세로
     (display_width, display_height) = (0,0) # 게임 창 크기
