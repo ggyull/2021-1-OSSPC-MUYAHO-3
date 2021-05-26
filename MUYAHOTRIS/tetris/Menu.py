@@ -55,6 +55,7 @@ class Menu:
 
     def reset(self):  ## 뒤로 갈때 보여줄 목록들
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
+        self.mytheme.background_color = Image.main_image
         self.menu = pygame_menu.Menu(self.h, self.w, '', theme=self.mytheme)
         self.mytheme.widget_margin=self.widget_margin_main
         #Menu.click.play()
@@ -71,7 +72,9 @@ class Menu:
         self.page='page7'
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         self.surface = pygame.display.set_mode((resize.display_width,resize.display_height))
-        self.menu = pygame_menu.Menu(resize.display_width, resize.display_height, '', theme=self.mytheme2)
+        self.mytheme.background_color = Image.help_image
+        self.menu = pygame_menu.Menu(width=resize.display_width, height=resize.display_height, title='',theme=self.mytheme)
+        self.margin_help = MN.margin_help
         self.menu.add_vertical_margin(self.margin_help)
         self.menu.add_button(' back ', self.reset, font_size=self.font_sub)
 

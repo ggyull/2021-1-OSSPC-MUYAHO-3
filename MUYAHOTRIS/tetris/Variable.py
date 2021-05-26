@@ -106,7 +106,17 @@ class Draw:
     border_thickness = 1 # 블록 경계 두께
 
 
-
+class resize:
+    init_display_w = 357 # 시작 디스플레이 가로
+    init_display_h = 450 # 시작 디스플레이 세로
+    init_image_point = (0,0) # 초기 이미지 시작점
+    (display_width, display_height) = (357,450) # 게임 창 크기
+    block_board_rate = 0.7 # 보드판이 차지하는 width 비율
+    score_board_rate = 0.3 # 스코어보드가 차지하는 width 비율
+    text_init_rate = 0.1 # 스코어보드에서 글씨가 시작되는 곳의 비율
+    one_block_height_ratio = 1/18 # 한 블록 세로가 전체에서 차지하는 비율
+    min_display_w = 357 # 최소 디스플레이 가로
+    min_display_h = 450 # 최소 디스플레이 세로
 
 class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
@@ -183,7 +193,7 @@ class MN:
     margin_main = int((menu_display_h)/rate_main)   # 메인 화면
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
     margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
-    margin_help=600    #HELP 화면
+    margin_help=280    #HELP 화면
 
     #게임 모드 선택 시 속도
     start_easy = 500
@@ -199,14 +209,4 @@ class Sound:
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
 
-class resize:
-    init_display_w = 357 # 시작 디스플레이 가로
-    init_display_h = 450 # 시작 디스플레이 세로
-    init_image_point = (0,0) # 초기 이미지 시작점
-    (display_width, display_height) = (0,0) # 게임 창 크기
-    block_board_rate = 0.7 # 보드판이 차지하는 width 비율
-    score_board_rate = 0.3 # 스코어보드가 차지하는 width 비율
-    text_init_rate = 0.1 # 스코어보드에서 글씨가 시작되는 곳의 비율
-    one_block_height_ratio = 1/18 # 한 블록 세로가 전체에서 차지하는 비율
-    min_display_w = 357 # 최소 디스플레이 가로
-    min_display_h = 450 # 최소 디스플레이 세로
+
