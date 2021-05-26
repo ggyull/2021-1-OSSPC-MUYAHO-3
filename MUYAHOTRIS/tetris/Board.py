@@ -258,6 +258,7 @@ class Board:
                     sys.exit()
                 elif event.type == KEYDOWN:
                     running = False
+        self.HS(str(self.score))    #GameOver 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
 
     def newGame(self):
         pygame.display.update()
@@ -267,31 +268,26 @@ class Board:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                #elif event.type == KEYDOWN:
                 running = False
 
     def HS(self, txt="no"):
+        self.screen.fill(Color.BLACK) # 뒷배경 블랙
+        pygame.display.update() #업데이트
         if txt != "no":
-            fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-            textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.GREEN)
+            fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, 36)
+            textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.LIGHTYELLOW)
             textRectObj = textSurfaceObj.get_rect()
-            textRectObj.center = (175, 185)
-            fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-            textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-            textRectObj2 = textSurfaceObj2.get_rect()
-            textRectObj2.center = (175, 235)
-            self.screen.fill(Color.BLACK)
+            textRectObj.center = (175, 220)
             self.screen.blit(textSurfaceObj, textRectObj)
-            self.screen.blit(textSurfaceObj2, textRectObj2)
             pygame.display.update()
-            running = True
-            while running:
-                for event in pygame.event.get():
-                    if event.type == QUIT:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.type == KEYDOWN:
-                        running = False
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYDOWN:
+                    running = False
 
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):

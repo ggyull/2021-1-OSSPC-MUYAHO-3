@@ -7,7 +7,7 @@ import pygame
 import pygame_menu
 from Tetris import *
 import time
-from Variable import MN
+from Variable import *
 
 class Menu:
 
@@ -19,8 +19,8 @@ class Menu:
         self.w = MN.menu_display_w
         self.h = MN.menu_display_h
         self.Mode = MN.initial_mode
-        #self.id=Var.initial_id
-        #self.score=Var.initial_score
+        self.id= MN.initial_id
+        self.score=Set.init_score
         self.page=MN.initial_page
         self.surface=pygame.display.set_mode((self.w,self.h),RESIZABLE)
         self.mytheme=MN.mytheme
@@ -70,7 +70,6 @@ class Menu:
 
     def show_game(self):
         self.page = 'page1'
-
         #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
@@ -88,7 +87,7 @@ class Menu:
         self.tetris.mode = 'Easy'
         self.tetris.run(500) # speed in easy mode
         self.menu.clear()
-        #self.show_score(self.Mode, self.tetris.Score)
+        self.show_score(self.Mode, self.tetris.Score)
 
     def start_hard(self):
         #Menu.click.play()
@@ -96,7 +95,22 @@ class Menu:
         self.tetris.mode = 'Hard'
         self.tetris.run(200) # speed in hard mode
         self.menu.clear()
-        #self.show_score(self.Mode, self.tetris.Score)
+        self.show_score(self.Mode, self.tetris.Score)
+
+    def show_score(self, game_mode, game_score):
+        self.page = 'page6'
+        self.Mode = game_mode
+        self.score = game_score
+        self.surfuace = pygame.display.set_mode((self.w,self.h), RESIZABLE)
+        self.mytheme.widget_margin=self.widget_margin_main
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_text_input('ID: ',maxchar=3, onreturn=self.save_id,font_size=self.font_main)
+        self.menu.add_button('EXIT',pygame_menu.events.EXIT,font_size=self.font_main)
+
+    def save_id(self, value):
+        self.id = value
+        #self.database.add_data(self.Mode, self.id, self.score)
+        self.reset()
 
 
     def show_rank(self):

@@ -103,10 +103,11 @@ help_image = pygame_menu.baseimage.BaseImage(
 
 
 class MN:
-    infoObject = () #디스플레이 사이즈 받기
+    infoObject = () # 디스플레이 사이즈 받기
     menu_display_w = 600
     menu_display_h = 600
     initial_mode = 0
+    initial_id = 0 # 초기 ID 값
 
 
 #메뉴 기본 테마 만들기
@@ -117,7 +118,7 @@ class MN:
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
-    mytheme.widget_font =pygame_menu.font.FONT_NEVIS                # 메뉴 폰트 설정
+    mytheme.widget_font =pygame_menu.font.FONT_MUNRO              # 메뉴 폰트 설정
     mytheme.widget_margin=(0,40)
 #HELP 메뉴 만들
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
