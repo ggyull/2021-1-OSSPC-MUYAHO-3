@@ -27,6 +27,9 @@ class Size:
     field_height = 20  # 맵 위에서 아래로 사이즈
     block_size = 25 # 블록 사이즈(픽셀)
     next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
+    HS_font_size = 36 # 게임 오버시 최종 점수 폰트 크기
+    HS_center_x = 175 # 스코어 표시 center x 위치
+    HS_center_y = 220 # 스코어 표시 center y 위치
 
 class Set:
     init_score = 0 # 초기 점수 세팅

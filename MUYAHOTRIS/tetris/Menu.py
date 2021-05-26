@@ -8,6 +8,7 @@ import pygame_menu
 from Tetris import *
 import time
 from Variable import *
+from Database import *
 
 class Menu:
 
@@ -15,7 +16,7 @@ class Menu:
         pygame.init()
         MN.infoObject = pygame.display.Info()
         self.tetris=Tetris()
-        #self.database = Database()
+        self.database = Database()
         self.w = MN.menu_display_w
         self.h = MN.menu_display_h
         self.Mode = MN.initial_mode
@@ -101,15 +102,17 @@ class Menu:
         self.page = 'page6'
         self.Mode = game_mode
         self.score = game_score
+        self.menu.clear()
         self.surfuace = pygame.display.set_mode((self.w,self.h), RESIZABLE)
         self.mytheme.widget_margin=self.widget_margin_main
         self.menu.add_vertical_margin(self.margin_main)
         self.menu.add_text_input('ID: ',maxchar=3, onreturn=self.save_id,font_size=self.font_main)
+        self.menu.add_button('back', self.reset, font_size=self.font_main)
         self.menu.add_button('EXIT',pygame_menu.events.EXIT,font_size=self.font_main)
 
     def save_id(self, value):
         self.id = value
-        #self.database.add_data(self.Mode, self.id, self.score)
+        self.database.add_data(self.Mode, self.id, self.score)
         self.reset()
 
 
@@ -121,9 +124,28 @@ class Menu:
         self.menu.add_vertical_margin(self.margin_main)
         self.menu.add_label("   __RANKING__   ", selectable=False, font_size=self.font_main)
         self.menu.add_vertical_margin(self.margin_show)
-        self.menu.add_button('     Easy mode ranking     ', self.start_easy, font_size=self.font_main)
+        self.menu.add_button('     Easy mode ranking     ', self.easy_rank, font_size=self.font_main)
         self.menu.add_button('     Hard mode ranking    ', self.start_hard, font_size=self.font_main)
         self.menu.add_button('         back         ', self.reset, font_size=self.font_main)
+
+    def easy_rank(self):
+        self.page='page3'
+        #Menu.click.play()
+        self.menu.clear()
+        self.mytheme.widget_margin=self.widget_margin_rank
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_label("--Easy Rank--",selectable=False,font_size=self.font_main)
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_label("           ID          Score",selectable=False, font_size=self.font_main)
+        easy_data = self.database.load_data('Easy')
+        for i in range(5):
+            easy_name = str(easy_data[i]['ID'])
+            easy_score = '{0:>05s}'.format(str(easy_data[i]['score']))
+            r= "#{} : ".format(i+1) + easy_name + "    " + easy_score
+            self.menu.add_button(r,font_size=self.font_main)
+        self.menu.add_button('back', self.reset,font_size=self.font_sub)
+
+
 
     def vs_mode(self):
         self.Mode = 'Easy'

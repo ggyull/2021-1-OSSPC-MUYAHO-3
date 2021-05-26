@@ -274,10 +274,10 @@ class Board:
         self.screen.fill(Color.BLACK) # 뒷배경 블랙
         pygame.display.update() #업데이트
         if txt != "no":
-            fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, 36)
+            fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, Size.HS_font_size)
             textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.LIGHTYELLOW)
             textRectObj = textSurfaceObj.get_rect()
-            textRectObj.center = (175, 220)
+            textRectObj.center = (Size.HS_center_x, Size.HS_center_y)
             self.screen.blit(textSurfaceObj, textRectObj)
             pygame.display.update()
         running = True
