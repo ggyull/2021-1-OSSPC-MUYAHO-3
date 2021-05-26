@@ -161,7 +161,7 @@ class Board:
                     if self.level < Set.max_level:
                         self.board = []
                         for i in range(self.height):
-                            self.board.append(Level.lv2[i])
+                            self.board.append(Level.lv[self.level-2][i])
                 else:
                     self.goal = '-'
 
@@ -342,7 +342,7 @@ class Board:
         self.screen_widget_x = self.screen_point1_x+(resize.display_width*0.3)*0.1
         pygame.display.update()
 
-    def levelup(self): #레벨 업 시 효과
+    def levelup(self): #레벨 업 시
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
         levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
