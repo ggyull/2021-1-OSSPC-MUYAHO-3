@@ -42,7 +42,7 @@ while True:
             elif mymenu.page=='page3':
                 mymenu.easy_rank()
             elif mymenu.page=='page4':
-                mymenu.Twohands_the_rank()
+                mymenu.hard_rank()
             elif mymenu.page=='page5':
                 mymenu.Mini_the_rank()
             elif mymenu.page=='page6':

@@ -183,4 +183,3 @@ class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
-

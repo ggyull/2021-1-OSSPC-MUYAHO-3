@@ -125,7 +125,7 @@ class Menu:
         self.menu.add_label("   __RANKING__   ", selectable=False, font_size=self.font_main)
         self.menu.add_vertical_margin(self.margin_show)
         self.menu.add_button('     Easy mode ranking     ', self.easy_rank, font_size=self.font_main)
-        self.menu.add_button('     Hard mode ranking    ', self.start_hard, font_size=self.font_main)
+        self.menu.add_button('     Hard mode ranking    ', self.hard_rank, font_size=self.font_main)
         self.menu.add_button('         back         ', self.reset, font_size=self.font_main)
 
     def easy_rank(self):
@@ -135,8 +135,7 @@ class Menu:
         self.mytheme.widget_margin=self.widget_margin_rank
         self.menu.add_vertical_margin(self.margin_main)
         self.menu.add_label("--Easy Rank--",selectable=False,font_size=self.font_main)
-        self.menu.add_vertical_margin(self.margin_main)
-        self.menu.add_label("           ID          Score",selectable=False, font_size=self.font_main)
+        self.menu.add_label("ID        Score",selectable=False, font_size=self.font_main)
         easy_data = self.database.load_data('Easy')
         for i in range(5):
             easy_name = str(easy_data[i]['ID'])
@@ -145,7 +144,21 @@ class Menu:
             self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
-
+    def hard_rank(self):
+        self.page='page4'
+        #menu.click.play()
+        self.menu.clear()
+        self.mytheme.widget_margin=self.widget_margin_rank
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_label("--Hard Rank--",selectable=False,font_size=self.font_main)
+        self.menu.add_label("ID        Score",selectable=False, font_size=self.font_main)
+        easy_data = self.database.load_data('Hard')
+        for i in range(5):
+            hard_name = str(easy_data[i]['ID'])
+            hard_score = '{0:>05s}'.format(str(easy_data[i]['score']))
+            r= "#{} : ".format(i+1) + hard_name + "    " + hard_score
+            self.menu.add_button(r,font_size=self.font_main)
+        self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
     def vs_mode(self):
         self.Mode = 'Easy'
