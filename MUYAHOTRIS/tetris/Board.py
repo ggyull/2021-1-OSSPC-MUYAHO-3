@@ -3,6 +3,8 @@ from pygame.locals import *
 from Piece import *
 from Variable import *
 from Menu import *
+import time
+
 pygame.init()
 display = pygame.display.Info()
 
@@ -142,9 +144,22 @@ class Board:
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         delete_number = len(remove)
+
         for y in remove:
             line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
-            line_sound.play()
+            if delete_number == Num.One:
+                combo_image = pygame.image.load("assets/images/2x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > 0.3:
+                        break;
+                line_sound.play()
+            #elif delete_number == 3:
+            #elid delete_number == 4:
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
@@ -317,11 +332,15 @@ class Board:
     def resizing(self):
         infoObject = pygame.display.Info()
         self.max_height = infoObject.current_h
+        pre_display_width = resize.display_width
+        pre_display_height = resize.display_height
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         if resize.display_width <= resize.min_display_w:
             resize.display_width = resize.min_display_w
         if resize.display_height <= resize.min_display_h:
             resize.display_height = resize.min_display_h
+        var_display_width_rate = resize.display_width / pre_display_width
+        var_display_height_rate = resize.display_height / pre_display_height
         block_board_width = resize.display_width * resize.block_board_rate
         score_board_width = resize.display_width * resize.score_board_rate
         self.block_x = block_board_width * resize.text_init_rate
@@ -331,6 +350,10 @@ class Board:
         self.screen_point2_x = resize.display_width
         self.screen_point2_y = resize.display_height
         self.screen_widget_x = block_board_width + (score_board_width) * resize.text_init_rate
+        Image.combo_image_width = int(Image.combo_image_width * var_display_width_rate)
+        Image.combo_image_height = int(Image.combo_image_height * var_display_height_rate)
+        Image.combo_image_size = (Image.combo_image_width,Image.combo_image_height)
+        Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
         pygame.display.update()
 
 

@@ -128,6 +128,13 @@ class Image:
     help_image = pygame_menu.baseimage.BaseImage(
         image_path='assets/images/help_image.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
+    combo_image_width = 250         #콤보 이미지 초기 폭
+    combo_image_height = 50         #콤보 이미지 초기 높이
+    combo_image_size = (250,50)     #콤보 이미지 초기 사이즈
+
+    combo_image_init_x = 0          #콤보 이미지 초기 x 출력 위치
+    combo_image_init_y = 50         #콤보 이미지 초기 y 출력 위치
+    combo_image_init = (0,50)       #콤보 이미지 초기 출력 위치
 
 class MN:
     infoObject = () #디스플레이 사이즈 받기
