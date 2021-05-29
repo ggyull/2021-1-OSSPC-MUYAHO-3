@@ -3,8 +3,55 @@ import pygame_menu
 import random
 import os
 from pygame.locals import *
+class Piece_Shape:
+
+    O = (((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 0, 1, 1, 0), (0, 0, 1, 1, 0), (0, 0, 0, 0, 0)),) * 4
+
+    I = (((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 2, 2, 2, 2), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 2, 0, 0), (0, 0, 2, 0, 0), (0, 0, 2, 0, 0), (0, 0, 2, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (2, 2, 2, 2, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 2, 0, 0), (0, 0, 2, 0, 0), (0, 0, 2, 0, 0), (0, 0, 2, 0, 0), (0, 0, 0, 0, 0)))
+
+    L = (((0, 0, 0, 0, 0), (0, 0, 3, 0, 0), (0, 0, 3, 0, 0), (0, 0, 3, 3, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 3, 3, 3, 0), (0, 3, 0, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 3, 3, 0, 0), (0, 0, 3, 0, 0), (0, 0, 3, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 3, 0), (0, 3, 3, 3, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)))
+
+    J = (((0, 0, 0, 0, 0), (0, 0, 4, 0, 0), (0, 0, 4, 0, 0), (0, 4, 4, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 4, 0, 0, 0), (0, 4, 4, 4, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 4, 4, 0), (0, 0, 4, 0, 0), (0, 0, 4, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 4, 4, 4, 0), (0, 0, 0, 4, 0), (0, 0, 0, 0, 0)))
+
+    Z = (((0, 0, 0, 0, 0), (0, 0, 0, 5, 0), (0, 0, 5, 5, 0), (0, 0, 5, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 5, 5, 0, 0), (0, 0, 5, 5, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 5, 0, 0), (0, 5, 5, 0, 0), (0, 5, 0, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 5, 5, 0, 0), (0, 0, 5, 5, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)))
+
+    S = (((0, 0, 0, 0, 0), (0, 0, 6, 0, 0), (0, 0, 6, 6, 0), (0, 0, 0, 6, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 0, 6, 6, 0), (0, 6, 6, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 6, 0, 0, 0), (0, 6, 6, 0, 0), (0, 0, 6, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 6, 6, 0), (0, 6, 6, 0, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)))
+
+    T = (((0, 0, 0, 0, 0), (0, 0, 7, 0, 0), (0, 0, 7, 7, 0), (0, 0, 7, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 0, 0, 0), (0, 7, 7, 7, 0), (0, 0, 7, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 7, 0, 0), (0, 7, 7, 0, 0), (0, 0, 7, 0, 0), (0, 0, 0, 0, 0)),
+         ((0, 0, 0, 0, 0), (0, 0, 7, 0, 0), (0, 7, 7, 7, 0), (0, 0, 0, 0, 0), (0, 0, 0, 0, 0)))
+
+    PIECES = {'O': O, 'I': I, 'L': L, 'J': J, 'Z': Z, 'S': S, 'T': T}
+
+    # Tetrimino colors
+    cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
+    blue = (64, 111, 249)  # rgb(64, 111, 249) # J
+    orange = (253, 189, 53)  # rgb(253, 189, 53) # L
+    yellow = (246, 227, 90)  # rgb(246, 227, 90) # O
+    green = (98, 190, 68)  # rgb(98, 190, 68) # S
+    pink = (242, 64, 235)  # rgb(242, 64, 235) # T
+    red = (225, 13, 27)  # rgb(225, 13, 27) # Z
+    black = (55, 55, 55)  # rgb(55, 55, 55) # background
+    Block_COLOR = [yellow, cyan, orange, blue, red, green, pink, black]
 
 class Num:
+
     Zero = 0 # 0
     One = 1 # 1
     Two = 2 # 2
@@ -12,9 +59,11 @@ class Num:
     Four = 4 # 4
 
 class Error_Type:
+
     COLLIDE_ERROR = {'no_error': 0, 'right_wall': 1, 'left_wall': 2, 'bottom': 3, 'overlap': 4}
 
 class Color:
+
     #         R    G    B
     WHITE = (255, 255, 255)
     GRAY = (185, 185, 185)
@@ -31,6 +80,7 @@ class Color:
     MORELIGHTYELLOW = (255,247,22)
 
 class Size:
+
     field_width = 10  # 맵의 좌에서 우로 사이즈
     field_height = 20  # 맵 위에서 아래로 사이즈
     block_x = 25 # 블록 가로(픽셀)
@@ -43,6 +93,7 @@ class Size:
     next_block_gap = 0.55 # 다음블록 픽셀 사이 간격
 
 class Set:
+
     framerate = 30 # 프레임 설정
     init_score = 0 # 초기 점수 세팅
     init_level = 1 # 초기 레벨
@@ -67,6 +118,7 @@ class Set:
     board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
 
 class Draw:
+
     Shape_Color_Match = 1 # 블록을 채우는 상수와 Block_COLOR의 인덱스를 맞춰주기 위한 1(Board에서 빼줌)
     Shadow_Color_index = 7 # 그림자 색의 인덱스 (55, 55, 55)
     screen_point1_x = 250 # 흰색 스크린 시작점 x 위치
@@ -110,6 +162,7 @@ class Draw:
 
 
 class resize:
+
     init_display_w = 357 # 시작 디스플레이 가로
     init_display_h = 450 # 시작 디스플레이 세로
     init_image_point = (0,0) # 초기 이미지 시작점
@@ -122,6 +175,7 @@ class resize:
     min_display_h = 450 # 최소 디스플레이 세로
 
 class Image:
+
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
@@ -155,7 +209,6 @@ class MN:
     #mytheme.widget_background_color = widget_image                 # 메뉴 위젯 배경 설정
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
     mytheme.widget_alignment=pygame_menu.locals.ALIGN_CENTER        # 메뉴 가운데 정렬 설정
-    mytheme.widget_font =pygame_menu.font.FONT_MUNRO              # 메뉴 폰트 설정
     mytheme.widget_font =pygame_menu.font.FONT_MUNRO                # 메뉴 폰트 설정
     mytheme.widget_margin=(0,40)
 
@@ -212,15 +265,18 @@ class MN:
     start_hard = 200
 
 class Score:
+
     stack_score = 1 # 블록 쌓을 때 쌓이는 점수
 
 
 class Sound:
+
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
 class Effect:
+
     combo_duration = 0.3 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
