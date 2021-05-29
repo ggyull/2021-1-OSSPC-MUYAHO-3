@@ -2,7 +2,11 @@ import pygame, sys, datetime, time
 from pygame.locals import *
 from Piece import *
 from Variable import *
+from Menu import *
+import time
 
+pygame.init()
+display = pygame.display.Info()
 
 class Board:
 
@@ -13,6 +17,13 @@ class Board:
         self.block_size = Size.block_size
         self.init_board()
         self.generate_piece()
+        self.block_x = Size.block_x
+        self.block_y = Size.block_y
+        self.screen_point1_x = Draw.screen_point1_x
+        self.screen_point1_y = Draw.screen_point1_y
+        self.screen_point2_x = Draw.screen_point2_x
+        self.screen_point2_y = Draw.screen_point2_y
+        self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*Draw.white_text_rate #하얀부분 글씨
 
     def init_board(self):
         self.board = []
@@ -121,24 +132,64 @@ class Board:
         self.try_rotate_piece(clockwise)
 
     def pos_to_pixel(self, x, y):
-        return self.block_size*x, self.block_size*(y-Set.hidden_lines)
+        return self.block_x*x, self.block_y*(y-Set.hidden_lines)
 
     def pos_to_pixel_next(self, x, y):
-        return self.block_size*x*Size.next_block_ratio, self.block_size*(y-Set.hidden_lines)*Size.next_block_ratio
+        return self.block_x*x*Size.next_block_ratio, self.block_y*(y-Set.hidden_lines)*Size.next_block_ratio
 
     def delete_line(self, y):
-        for y in reversed(range(Set.first_line_index_y, y+Set.dummy_one)):
-            self.board[y] = list(self.board[y-1])
+        for y in reversed(range(Set.first_line_index_y, y+Num.One)):
+            self.board[y] = list(self.board[y-Num.One])
 
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         delete_number = len(remove)
+
         for y in remove:
             line_sound = pygame.mixer.Sound(Sound.deleteline_sound_ref)
             line_sound.play()
+
+            if delete_number == Num.Two:
+                combo_image = pygame.image.load("assets/images/2x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+
+            elif delete_number == Num.Three:
+                combo_image = pygame.image.load("assets/images/3x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+
+            elif delete_number == Num.Four:
+                combo_image = pygame.image.load("assets/images/4x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+            Effect.count = Effect.count + Num.One
+            if Effect.count == len(remove):
+                line_sound.play()
+                Effect.count = Num.Zero
+
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
+
             if self.goal == Set.success_goal:
                 if self.level < Set.max_level:
                     self.level += Set.plus_level
@@ -146,10 +197,11 @@ class Board:
                 else:
                     self.goal = '-'
 
+
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
-    
-    def draw_blocks(self, array2d, color=Color.WHITE, dx=0, dy=0):
+
+    def draw_blocks(self, array2d, color=Color.WHITE, dx=Num.Zero, dy=Num.Zero):
         for y, row in enumerate(array2d):
             y += dy
             if y >= Set.board_third and y < self.height:
@@ -157,11 +209,10 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
-                                        (x_pix, y_pix, self.block_size, self.block_size))
+                                        (x_pix, y_pix, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                        (x_pix, y_pix, self.block_size, self.block_size), Set.block_border_thickness)
+                                        (x_pix, y_pix, self.block_x, self.block_y), Draw.border_thickness)
 
     def draw_shadow(self, array2d, dx, dy): #그림자 기능 함수 추가
         for y, row in enumerate(array2d):
@@ -171,14 +222,14 @@ class Board:
                     x += dx
                     if block:
                         tmp = Set.plus_one
-                        while self.can_move_piece(0,tmp):
+                        while self.can_move_piece(Num.Zero,tmp):
                             tmp += Set.plus_one
-                        x_s, y_s = self.pos_to_pixel(x,y + tmp - 1)
+                        x_s, y_s = self.pos_to_pixel(x,y + tmp - Num.One)
 
                         pygame.draw.rect(self.screen, self.piece.Block_COLOR[Draw.Shadow_Color_index],
-                                         (x_s, y_s, self.block_size, self.block_size))
+                                         (x_s, y_s, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
-                                         (x_s, y_s, self.block_size, self.block_size),Set.block_border_thickness)
+                                         (x_s, y_s, self.block_x, self.block_y),Draw.border_thickness)
 
     def draw_next_piece(self, array2d, color=Color.WHITE):
         for y, row in enumerate(array2d):
@@ -186,9 +237,9 @@ class Board:
                 if block:
                     x_pix, y_pix = self.pos_to_pixel_next(x,y)
                     pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
-                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5))
+                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))# 넥스트블록
                     pygame.draw.rect(self.screen, Color.BLACK,
-                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
+                                    (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap), Draw.border_thickness)
 
     def draw(self,previous_time):
         current_time = int(time.time())
@@ -202,15 +253,15 @@ class Board:
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
                 pygame.draw.rect(self.screen, Color.DARKGRAY,
-                 (x_pix, y_pix, self.block_size, self.block_size))
+                 (x_pix, y_pix, self.block_x, self.block_y))
                 pygame.draw.rect(self.screen, Color.BLACK,
-                 (x_pix, y_pix, self.block_size, self.block_size),1)
+                 (x_pix, y_pix, self.block_x, self.block_y),1)
 
         self.draw_shadow(self.piece, dx=self.piece_x,dy=self.piece_y) #그림자 기능 추가
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
 
-        pygame.draw.rect(self.screen, Color.WHITE, Rect(Draw.screen_point1_x, Draw.screen_point1_y, Draw.screen_point2_x, Draw.screen_point2_y)) # 게임시 옆에 흰색 바탕 관련 코드
+        pygame.draw.rect(self.screen, Color.WHITE, Rect(self.screen_point1_x, self.screen_point1_y, self.screen_point2_x, self.screen_point2_y)) # 게임시 옆에 흰색 바탕 관련 코드
         self.draw_next_piece(self.next_piece)
         next_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.next_text_size).render('NEXT', True, Color.BLACK)
         score_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.score_text_size).render('SCORE', True, Color.BLACK)
@@ -221,20 +272,30 @@ class Board:
         goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.goal_value_size).render(str(self.goal), True, Color.BLACK)
         play_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.play_text_size).render('PLAY',True, Color.BLACK)
         time_text = pygame.font.Font('assets/Roboto-Bold.ttf', Draw.time_text_size).render(play_time, True, Color.BLACK)
-        self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
-        self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
-        self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
-        self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
-        self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
-        self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
-        self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
-        self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
-        self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
+        self.screen.blit(next_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.next_text_dy))
+        self.screen.blit(score_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.score_text_dy))
+        self.screen.blit(score_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.score_value_dy))
+        self.screen.blit(level_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.level_text_dy))
+        self.screen.blit(level_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.level_value_dy))
+        self.screen.blit(goal_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_text_dy))
+        self.screen.blit(goal_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_value_dy))
+        self.screen.blit(play_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.play_text_dy))
+        self.screen.blit(time_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.time_text_dy))
+        #self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
+        #self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
+        #self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
+        #self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
+        #self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
+        #self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
+        #self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
+        #self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
+        #self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
 
     def pause(self):
+        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
-        pause_image = pygame.transform.scale(pause_image, (350, 450))       # Pause 이미지 350,450 크기 변환
-        self.screen.blit(pause_image,(0,0))                                 # Pause 이미지 시작 위치 좌상단 좌표
+        pause_image = pygame.transform.scale(pause_image, (resize.display_width,resize.display_height))       # Pause 이미지 350,450 크기 변환
+        self.screen.blit(pause_image,resize.init_image_point)                                 # Pause 이미지 시작 위치 좌상단 좌표
         pygame.display.update()
         running = True
         while running:
@@ -246,9 +307,10 @@ class Board:
                     running = False
 
     def GameOver(self):
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
-        gameover_image = pygame.transform.scale(gameover_image, (350, 450))  # Gameover 이미지 350,450 크기 변환
-        self.screen.blit(gameover_image, (0, 0))  # Gameover 이미지 시작 위치 좌상단 좌
+        gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))
+        self.screen.blit(gameover_image, resize.init_image_point)  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
         running = True
         while running:
@@ -288,6 +350,34 @@ class Board:
                     sys.exit()
                 elif event.type == KEYDOWN:
                     running = False
+
+    def resizing(self):
+        infoObject = pygame.display.Info()
+        self.max_height = infoObject.current_h
+        pre_display_width = resize.display_width
+        pre_display_height = resize.display_height
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+        if resize.display_width <= resize.min_display_w:
+            resize.display_width = resize.min_display_w
+        if resize.display_height <= resize.min_display_h:
+            resize.display_height = resize.min_display_h
+        var_display_width_rate = resize.display_width / pre_display_width
+        var_display_height_rate = resize.display_height / pre_display_height
+        block_board_width = resize.display_width * resize.block_board_rate
+        score_board_width = resize.display_width * resize.score_board_rate
+        self.block_x = block_board_width * resize.text_init_rate
+        self.block_y = resize.display_height * resize.one_block_height_ratio
+        self.block_size = Size.block_x * Size.block_y
+        self.screen_point1_x = block_board_width
+        self.screen_point2_x = resize.display_width
+        self.screen_point2_y = resize.display_height
+        self.screen_widget_x = block_board_width + (score_board_width) * resize.text_init_rate
+        Image.combo_image_width = int(Image.combo_image_width * var_display_width_rate)
+        Image.combo_image_height = int(Image.combo_image_height * var_display_height_rate)
+        Image.combo_image_size = (Image.combo_image_width,Image.combo_image_height)
+        Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
+        pygame.display.update()
+
 
     # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
     # def ultimate(self):

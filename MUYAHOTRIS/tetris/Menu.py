@@ -17,6 +17,7 @@ class Menu:
         MN.infoObject = pygame.display.Info()
         self.tetris=Tetris()
         self.database = Database()
+        (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()
         self.w = MN.menu_display_w
         self.h = MN.menu_display_h
         self.Mode = MN.initial_mode
@@ -38,6 +39,10 @@ class Menu:
         self.margin_rank=MN.margin_rank                       #rank 페이지 x,y 위젯 시작 위치
 
     def run(self):   # 실행하는 함수
+        icon = pygame.image.load(Image.icon_ref)
+        pygame.display.set_icon(icon)
+        pygame.display.set_caption('MUYAHOTRIS')
+        self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
         self.page=MN.initial_page   #시작하면 기본 모드로 모드가 설정
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_main
@@ -48,8 +53,10 @@ class Menu:
         self.menu.add_button('  Help  ', self.help, font_size=self.font_main)
         self.menu.add_button('        Exit         ', pygame_menu.events.EXIT,font_size=self.font_main)
 
+
     def reset(self):  ## 뒤로 갈때 보여줄 목록들
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
+        self.mytheme.background_color = Image.main_image
         self.menu = pygame_menu.Menu(self.h, self.w, '', theme=self.mytheme)
         self.mytheme.widget_margin=self.widget_margin_main
         #Menu.click.play()
@@ -64,18 +71,22 @@ class Menu:
 
     def help(self): # help 페이
         self.page='page7'
-        self.surface = pygame.display.set_mode(MN.help_screen)
-        self.menu = pygame_menu.Menu(MN.help_h, MN.help_w, '', theme=self.mytheme2)
+        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
+        self.surface = pygame.display.set_mode((resize.display_width,resize.display_height))
+        self.mytheme.background_color = Image.help_image
+        self.menu = pygame_menu.Menu(width=resize.display_width, height=resize.display_height, title='',theme=self.mytheme)
+        self.margin_help = MN.margin_help
         self.menu.add_vertical_margin(self.margin_help)
-        self.menu.add_button(' back ', self.reset,font_size=self.font_sub)
+        self.menu.add_button(' back ', self.reset, font_size=self.font_sub)
 
     def show_game(self):
+
         self.page = 'page1'
         #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
         self.menu.add_vertical_margin(self.margin_main)
-        self.menu.add_label("   __Start game__   ", selectable=False, font_size=self.font_main)
+        self.menu.add_label("   - Select Menu -   ", selectable=False, font_size=self.font_main)
         self.menu.add_vertical_margin(self.margin_show)
         self.menu.add_button('     Easy mode     ', self.start_easy, font_size=self.font_main)
         self.menu.add_button('     Hard mode     ', self.start_hard, font_size=self.font_main)
@@ -86,7 +97,7 @@ class Menu:
         #Menu.click.play()
         self.Mode = 'Easy'
         self.tetris.mode = 'Easy'
-        self.tetris.run(500) # speed in easy mode
+        self.tetris.run(MN.start_easy, 'EASY') # speed in easy mode
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Score)
 
@@ -94,7 +105,7 @@ class Menu:
         #Menu.click.play()
         self.Mode = 'Hard'
         self.tetris.mode = 'Hard'
-        self.tetris.run(200) # speed in hard mode
+        self.tetris.run(MN.start_hard, 'HARD') # speed in hard mode
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Score)
 
@@ -122,7 +133,7 @@ class Menu:
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
         self.menu.add_vertical_margin(self.margin_main)
-        self.menu.add_label("   __RANKING__   ", selectable=False, font_size=self.font_main)
+        self.menu.add_label("   - RANKING -   ", selectable=False, font_size=self.font_main)
         self.menu.add_vertical_margin(self.margin_show)
         self.menu.add_button('     Easy mode ranking     ', self.easy_rank, font_size=self.font_main)
         self.menu.add_button('     Hard mode ranking    ', self.hard_rank, font_size=self.font_main)
@@ -163,5 +174,5 @@ class Menu:
     def vs_mode(self):
         self.Mode = 'Easy'
         self.tetris.mode = 'Easy'
-        self.tetris.run(500) # speed in easy mode
+        self.tetris.run(MN.start_easy, 'VS') # speed in easy mode
         self.menu.clear()
