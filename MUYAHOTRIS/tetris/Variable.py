@@ -215,5 +215,8 @@ class Sound:
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
 
+class Effect:
+    combo_duration = 0.3 # 콤보 이미지 노출 시간
+    count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
 
 

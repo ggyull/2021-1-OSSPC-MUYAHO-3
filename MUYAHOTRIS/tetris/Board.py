@@ -147,7 +147,7 @@ class Board:
 
         for y in remove:
             line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
-            if delete_number == Num.One:
+            if delete_number == Num.Two:
                 combo_image = pygame.image.load("assets/images/2x Combo.png")
                 combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
                 start_time = time.time()
@@ -155,20 +155,46 @@ class Board:
                     current_time = time.time()
                     self.screen.blit(combo_image, Image.combo_image_init)
                     pygame.display.update()
-                    if current_time-start_time > 0.3:
-                        break;
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+
+            elif delete_number == Num.Three:
+                combo_image = pygame.image.load("assets/images/3x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+
+            elif delete_number == Num.Four:
+                combo_image = pygame.image.load("assets/images/4x Combo.png")
+                combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
+                start_time = time.time()
+                while True:
+                    current_time = time.time()
+                    self.screen.blit(combo_image, Image.combo_image_init)
+                    pygame.display.update()
+                    if current_time-start_time > Effect.combo_duration:
+                        break
+            Effect.count = Effect.count + Num.One
+            if Effect.count == len(remove):
                 line_sound.play()
-            #elif delete_number == 3:
-            #elid delete_number == 4:
+                Effect.count = Num.Zero
+
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
+
             if self.goal == Set.success_goal:
                 if self.level < Set.max_level:
                     self.level += Set.plus_level
                     self.goal = Set.init_goal * self.level
                 else:
                     self.goal = '-'
+
 
     def game_over(self):
         return sum(self.board[Set.board_first]) > Set.empty_board or sum(self.board[Set.board_second]) > Set.empty_board
