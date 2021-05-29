@@ -146,7 +146,9 @@ class Board:
         delete_number = len(remove)
 
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
+
+            line_sound = pygame.mixer.Sound(Sound.deleteline_sound_ref)
+            line_sound.play()
             if delete_number == Num.Two:
                 combo_image = pygame.image.load("assets/images/2x Combo.png")
                 combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
@@ -183,7 +185,6 @@ class Board:
             if Effect.count == len(remove):
                 line_sound.play()
                 Effect.count = Num.Zero
-
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
@@ -243,9 +244,7 @@ class Board:
         current_time = int(time.time())
         play_time = current_time - previous_time
         play_second = play_time % Draw.time_minute_to_second
-        play_minute = Draw.time_zero
-        if play_time >= Draw.time_minute_to_second:
-            play_minute += Draw.time_plus
+        play_minute = int(play_time / Draw.time_minute_to_second)
         play_time = str(play_minute) + Draw.time_colon + str(play_second)
 
         self.screen.fill(Color.BLACK)
@@ -320,6 +319,7 @@ class Board:
                     sys.exit()
                 elif event.type == KEYDOWN:
                     running = False
+        self.HS(str(self.score))    #GameOver 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
 
     def newGame(self):
         pygame.display.update()
@@ -329,31 +329,26 @@ class Board:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                #elif event.type == KEYDOWN:
                 running = False
 
     def HS(self, txt="no"):
+        self.screen.fill(Color.BLACK) # 뒷배경 블랙
+        pygame.display.update() #업데이트
         if txt != "no":
-            fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-            textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.GREEN)
+            fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, Size.HS_font_size)
+            textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.LIGHTYELLOW)
             textRectObj = textSurfaceObj.get_rect()
-            textRectObj.center = (175, 185)
-            fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
-            textSurfaceObj2 = fontObj2.render('Press a key to continue', True, Color.GREEN)
-            textRectObj2 = textSurfaceObj2.get_rect()
-            textRectObj2.center = (175, 235)
-            self.screen.fill(Color.BLACK)
+            textRectObj.center = (Size.HS_center_x, Size.HS_center_y)
             self.screen.blit(textSurfaceObj, textRectObj)
-            self.screen.blit(textSurfaceObj2, textRectObj2)
             pygame.display.update()
-            running = True
-            while running:
-                for event in pygame.event.get():
-                    if event.type == QUIT:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.type == KEYDOWN:
-                        running = False
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYDOWN:
+                    running = False
 
     def resizing(self):
         infoObject = pygame.display.Info()

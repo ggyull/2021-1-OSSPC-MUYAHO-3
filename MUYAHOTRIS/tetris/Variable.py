@@ -87,6 +87,9 @@ class Size:
     block_y = 25 # 블록 세로(픽셀)
     block_size = block_x * block_y # 블록 사이즈(픽셀)
     next_block_ratio = 0.6 # 다음블록 사이즈(픽셀) 비율
+    HS_font_size = 36 # 게임 오버시 최종 점수 폰트 크기
+    HS_center_x = 175 # 스코어 표시 center x 위치
+    HS_center_y = 220 # 스코어 표시 center y 위치
     next_block_gap = 0.55 # 다음블록 픽셀 사이 간격
 
 class Set:
@@ -196,6 +199,7 @@ class MN:
     menu_display_w = 357
     menu_display_h = 450
     initial_mode = 0
+    initial_id = 0 # 초기 ID 값
 
 
     #메뉴 기본 테마 만들기
@@ -270,11 +274,11 @@ class Sound:
 
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
+    deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
+
 
 class Effect:
 
     combo_duration = 0.3 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
-
-

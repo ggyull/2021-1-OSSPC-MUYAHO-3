@@ -7,7 +7,8 @@ import pygame
 import pygame_menu
 from Tetris import *
 import time
-from Variable import MN
+from Variable import *
+from Database import *
 
 class Menu:
 
@@ -15,13 +16,13 @@ class Menu:
         pygame.init()
         MN.infoObject = pygame.display.Info()
         self.tetris=Tetris()
-        #self.database = Database()
+        self.database = Database()
         (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()
         self.w = MN.menu_display_w
         self.h = MN.menu_display_h
         self.Mode = MN.initial_mode
-        #self.id=Var.initial_id
-        #self.score=Var.initial_score
+        self.id= MN.initial_id
+        self.score=Set.init_score
         self.page=MN.initial_page
         self.surface=pygame.display.set_mode((self.w,self.h),RESIZABLE)
         self.mytheme=MN.mytheme
@@ -81,7 +82,6 @@ class Menu:
     def show_game(self):
 
         self.page = 'page1'
-
         #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
@@ -99,7 +99,7 @@ class Menu:
         self.tetris.mode = 'Easy'
         self.tetris.run(MN.start_easy, 'EASY') # speed in easy mode
         self.menu.clear()
-        #self.show_score(self.Mode, self.tetris.Score)
+        self.show_score(self.Mode, self.tetris.Score)
 
     def start_hard(self):
         #Menu.click.play()
@@ -107,7 +107,24 @@ class Menu:
         self.tetris.mode = 'Hard'
         self.tetris.run(MN.start_hard, 'HARD') # speed in hard mode
         self.menu.clear()
-        #self.show_score(self.Mode, self.tetris.Score)
+        self.show_score(self.Mode, self.tetris.Score)
+
+    def show_score(self, game_mode, game_score):
+        self.page = 'page6'
+        self.Mode = game_mode
+        self.score = game_score
+        self.menu.clear()
+        self.surfuace = pygame.display.set_mode((self.w,self.h), RESIZABLE)
+        self.mytheme.widget_margin=self.widget_margin_main
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_text_input('ID: ',maxchar=3, onreturn=self.save_id,font_size=self.font_main)
+        self.menu.add_button('back', self.reset, font_size=self.font_main)
+        self.menu.add_button('EXIT',pygame_menu.events.EXIT,font_size=self.font_main)
+
+    def save_id(self, value):
+        self.id = value
+        self.database.add_data(self.Mode, self.id, self.score)
+        self.reset()
 
 
     def show_rank(self):
@@ -118,9 +135,41 @@ class Menu:
         self.menu.add_vertical_margin(self.margin_main)
         self.menu.add_label("   - RANKING -   ", selectable=False, font_size=self.font_main)
         self.menu.add_vertical_margin(self.margin_show)
-        self.menu.add_button('     Easy mode ranking     ', self.start_easy, font_size=self.font_main)
-        self.menu.add_button('     Hard mode ranking    ', self.start_hard, font_size=self.font_main)
+        self.menu.add_button('     Easy mode ranking     ', self.easy_rank, font_size=self.font_main)
+        self.menu.add_button('     Hard mode ranking    ', self.hard_rank, font_size=self.font_main)
         self.menu.add_button('         back         ', self.reset, font_size=self.font_main)
+
+    def easy_rank(self):
+        self.page='page3'
+        #Menu.click.play()
+        self.menu.clear()
+        self.mytheme.widget_margin=self.widget_margin_rank
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_label("--Easy Rank--",selectable=False,font_size=self.font_main)
+        self.menu.add_label("ID        Score",selectable=False, font_size=self.font_main)
+        easy_data = self.database.load_data('Easy')
+        for i in range(5):
+            easy_name = str(easy_data[i]['ID'])
+            easy_score = '{0:>05s}'.format(str(easy_data[i]['score']))
+            r= "#{} : ".format(i+1) + easy_name + "    " + easy_score
+            self.menu.add_button(r,font_size=self.font_main)
+        self.menu.add_button('back', self.reset,font_size=self.font_sub)
+
+    def hard_rank(self):
+        self.page='page4'
+        #menu.click.play()
+        self.menu.clear()
+        self.mytheme.widget_margin=self.widget_margin_rank
+        self.menu.add_vertical_margin(self.margin_main)
+        self.menu.add_label("--Hard Rank--",selectable=False,font_size=self.font_main)
+        self.menu.add_label("ID        Score",selectable=False, font_size=self.font_main)
+        easy_data = self.database.load_data('Hard')
+        for i in range(5):
+            hard_name = str(easy_data[i]['ID'])
+            hard_score = '{0:>05s}'.format(str(easy_data[i]['score']))
+            r= "#{} : ".format(i+1) + hard_name + "    " + hard_score
+            self.menu.add_button(r,font_size=self.font_main)
+        self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
     def vs_mode(self):
         self.Mode = 'Easy'
