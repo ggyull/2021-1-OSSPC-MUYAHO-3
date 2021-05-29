@@ -207,7 +207,7 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-                        pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
+                        pygame.draw.rect(self.screen, Piece_Shape.Block_COLOR[block - Draw.Shape_Color_Match],
                                         (x_pix, y_pix, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
                                         (x_pix, y_pix, self.block_x, self.block_y), Draw.border_thickness)
@@ -224,7 +224,7 @@ class Board:
                             tmp += Set.plus_one
                         x_s, y_s = self.pos_to_pixel(x,y + tmp - Num.One)
 
-                        pygame.draw.rect(self.screen, self.piece.Block_COLOR[Draw.Shadow_Color_index],
+                        pygame.draw.rect(self.screen, Piece_Shape.Block_COLOR[Draw.Shadow_Color_index],
                                          (x_s, y_s, self.block_x, self.block_y))
                         pygame.draw.rect(self.screen, Color.BLACK,
                                          (x_s, y_s, self.block_x, self.block_y),Draw.border_thickness)
@@ -234,7 +234,7 @@ class Board:
             for x, block in enumerate(row):
                 if block:
                     x_pix, y_pix = self.pos_to_pixel_next(x,y)
-                    pygame.draw.rect(self.screen, self.piece.Block_COLOR[block - Draw.Shape_Color_Match],
+                    pygame.draw.rect(self.screen, Piece_Shape.Block_COLOR[block - Draw.Shape_Color_Match],
                                     (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap))# 넥스트블록
                     pygame.draw.rect(self.screen, Color.BLACK,
                                     (x_pix+self.screen_point1_x, y_pix+(self.screen_point2_y-self.screen_point1_y)*Draw.next_block_y, self.block_x * Size.next_block_gap, self.block_y * Size.next_block_gap), Draw.border_thickness)
