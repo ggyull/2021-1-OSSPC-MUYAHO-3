@@ -146,7 +146,6 @@ class Board:
         delete_number = len(remove)
 
         for y in remove:
-
             line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
             if delete_number == Num.Two:
                 combo_image = pygame.image.load("assets/images/2x Combo.png")

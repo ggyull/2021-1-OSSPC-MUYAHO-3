@@ -194,7 +194,6 @@ class Image:
     combo_image_init = (0,50)       #콤보 이미지 초기 출력 위치
 
 class MN:
-
     infoObject = () #디스플레이 사이즈 받기
     menu_display_w = 357
     menu_display_h = 450
@@ -276,7 +275,6 @@ class Sound:
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
-
 
 class Effect:
 
