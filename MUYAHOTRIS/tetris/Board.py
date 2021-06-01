@@ -147,8 +147,7 @@ class Board:
 
         for y in remove:
 
-            line_sound = pygame.mixer.Sound(Sound.deleteline_sound_ref)
-            line_sound.play()
+            line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
             if delete_number == Num.Two:
                 combo_image = pygame.image.load("assets/images/2x Combo.png")
                 combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)
@@ -185,6 +184,7 @@ class Board:
             if Effect.count == len(remove):
                 line_sound.play()
                 Effect.count = Num.Zero
+
             self.delete_line(y)
             self.score += Set.delete_score * delete_number
             self.goal -= Set.delete_goal
@@ -377,18 +377,3 @@ class Board:
         Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
         pygame.display.update()
 
-
-    # 기존 q 스킬함수 -> 후에 레벨별 블록 생성시 참고하기 위해 삭제하지 않고 주석처리
-    # def ultimate(self):
-    #     if self.skill == 100:
-    #         bomb = pygame.image.load("assets/images/bomb.jpg")
-    #         bomb = pygame.transform.scale(bomb, (350, 450))
-    #         bomb_sound = pygame.mixer.Sound('assets/sounds/bomb.wav')
-    #         self.screen.blit(bomb, (0, 0))
-    #         pygame.display.update()
-    #         bomb_sound.play()
-    #         time.sleep(1)
-    #         self.board = []
-    #         self.skill = 0
-    #         for _ in range(self.height):
-    #             self.board.append([0]*self.width)
