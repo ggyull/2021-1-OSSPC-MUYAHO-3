@@ -321,6 +321,9 @@ class Board:
         self.HS(str(self.score))    #GameOver 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
 
     def newGame(self):
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+        self.resizing()
+        pygame.display.set_mode((resize.display_width, resize.display_height), RESIZABLE)
         pygame.display.update()
         running = True
         while running:
@@ -332,6 +335,8 @@ class Board:
 
     def HS(self, txt="no"):
         self.screen.fill(Color.BLACK) # 뒷배경 블랙
+        self.resizing()
+        pygame.display.set_mode((resize.display_width, resize.display_height), RESIZABLE)
         pygame.display.update() #업데이트
         if txt != "no":
             fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, Size.HS_font_size)

@@ -114,7 +114,8 @@ class Menu:
         self.Mode = game_mode
         self.score = game_score
         self.menu.clear()
-        self.surfuace = pygame.display.set_mode((self.w,self.h), RESIZABLE)
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+        self.surfuace = pygame.display.set_mode((resize.display_width,resize.display_height), RESIZABLE)
         self.mytheme.widget_margin=self.widget_margin_main
         self.menu.add_vertical_margin(self.margin_main)
         self.menu.add_text_input('ID: ',maxchar=3, onreturn=self.save_id,font_size=self.font_main)
