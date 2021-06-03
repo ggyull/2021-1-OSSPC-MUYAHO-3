@@ -216,7 +216,7 @@ class MN:
     #HELP 메뉴 만들기
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
     mytheme_help.widget_font = pygame_menu.font.FONT_MUNRO
-    mytheme_help.background_color = help_image  # 메뉴 배경 설정
+    mytheme_help.background_color = Image.help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
@@ -280,7 +280,7 @@ class Sound:
 class Effect:
     combo_duration = 0.3 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
-    
+
 class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
