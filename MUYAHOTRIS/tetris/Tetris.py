@@ -65,9 +65,9 @@ class Tetris:
                     sys.exit()
                 elif event.type == KEYUP and event.key == K_p:
                     self.screen.fill(Color.BLACK)
-                    pygame.mixer.music.stop()
+                    pygame.mixer.music.pause()
                     self.board.pause()
-                    pygame.mixer.music.play(-Num.One, Num.Zero)
+                    pygame.mixer.music.unpause()
                 elif event.type == KEYDOWN:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:

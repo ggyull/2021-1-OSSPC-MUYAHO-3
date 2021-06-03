@@ -215,7 +215,8 @@ class MN:
 
     #HELP 메뉴 만들기
     mytheme_help = pygame_menu.themes.THEME_ORANGE.copy()  # 메뉴 기본 테마 설정
-    mytheme_help.background_color = Image.help_image  # 메뉴 배경 설정
+    mytheme_help.widget_font = pygame_menu.font.FONT_MUNRO
+    mytheme_help.background_color = help_image  # 메뉴 배경 설정
     mytheme_help.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE  # 메뉴 타이틀 바 모양 설정
 
 
@@ -258,7 +259,7 @@ class MN:
     #마진 시작 가로 세로  좌표
     margin_main = int((menu_display_h)/rate_main)   # 메인 화면
     margin_show = int((menu_display_h)/rate_show)   #SHOW 화면
-    margin_rank =int((menu_display_h)/rate_rank)    #RANK 화면
+    margin_rank =int((menu_display_h)/rate_rank)    #RANK 화
     margin_help=280    #HELP 화면
 
     #게임 모드 선택 시 속도
@@ -266,18 +267,27 @@ class MN:
     start_hard = 200
 
 class Score:
-
     stack_score = 1 # 블록 쌓을 때 쌓이는 점수
 
 
 class Sound:
-
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
     block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
     deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
     bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
+    levelup_sound_ref = 'assets/sounds/levelup_sd.mp3' #레벨업 사운드 주소
 
 class Effect:
-
     combo_duration = 0.3 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
+    
+class Image:
+    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
+    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
+    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
+    levelup_image_ref = 'assets/images/bomb.jpg' #levelup 이미지 주
+
+class resize:
+    init_display_w = 600 # 시작 디스플레이 가로
+    init_display_h = 600# 시작 디스플레이 세로
+    (display_width, display_height) = (0,0) # 게임 창 크기

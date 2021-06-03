@@ -4,6 +4,7 @@ from Piece import *
 from Variable import *
 from Menu import *
 import time
+from Level import *
 
 pygame.init()
 display = pygame.display.Info()
@@ -33,6 +34,10 @@ class Board:
         self.skill = Set.init_skill
         for _ in range(self.height):
             self.board.append([Set.empty_board]*self.width)
+
+
+
+
 
     def generate_piece(self):
         self.piece = Piece()
@@ -192,6 +197,11 @@ class Board:
                 if self.level < Set.max_level:
                     self.level += Set.plus_level
                     self.goal = Set.init_goal * self.level
+                    self.levelup()
+                    if self.level < Set.max_level:
+                        self.board = []
+                        for i in range(self.height):
+                            self.board.append(Level.lv[self.level-2][i])
                 else:
                     self.goal = '-'
 
@@ -376,3 +386,12 @@ class Board:
         Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
         pygame.display.update()
 
+    def levelup(self): #레벨 업 시
+        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
+        levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
+        levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
+        levelup_sound = pygame.mixer.Sound(Sound.start_sound_ref)
+        self.screen.blit(levelup_image, (0, 0))
+        pygame.display.update()
+        levelup_sound.play()
+        time.sleep(1)
