@@ -5,7 +5,7 @@ class Database:
     def __init__(self):
         self.score_db = pymysql.connect(
         user = 'user',
-        passwd = 'sksk4655!!', # 데이터 서버 비밀번호는 나만 알음...  #요거 문제 해겨 하긴 해야함
+        passwd = 'muyaho12',
         host = 'muyahotris.cbsjhgovfxo7.ap-northeast-2.rds.amazonaws.com',
         db = 'muyahotris',
         charset = 'utf8'
@@ -19,8 +19,8 @@ class Database:
             sql = "select * from easymode_score order by score desc "
         elif game_mode == 'Hard':
             sql = "select * from hardmode_score order by score desc"
-        #elif game_mode == 'vs':
-            #sql = "select * from vsmode_score order by score desc"
+        elif game_mode == 'Level':
+            sql = "select * from levelmode_score order by level desc"
         curs.execute(sql)
         data = curs.fetchall() #리스트 안에 딕셔너리가 있는 형태
         curs.close()
@@ -31,10 +31,12 @@ class Database:
         curs = self.score_db.cursor()
         if game_mode == 'Easy':
             sql = "INSERT INTO easymode_score (ID, score) VALUES (%s, %s)"
+            curs.execute(sql, (ID, score))
         elif game_mode == 'Hard':
             sql = "INSERT INTO hardmode_score (ID, score) VALUES (%s, %s)"
-        #elif game_mode == 'mini':
-            #sql = "INSERT INTO mini_score (ID, score) VALUES (%s, %s)"
-        curs.execute(sql, (ID, score))
+            curs.execute(sql, (ID, score))
+        elif game_mode == 'Level':
+            sql = "INSERT INTO levelmode_score (ID, level) VALUES (%s, %s)"
+            curs.execute(sql, (ID, score))
         self.score_db.commit()  #서버로 추가 사항 보내기
         curs.close()

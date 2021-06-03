@@ -116,6 +116,7 @@ class Set:
     board_first = 0 # 보드의 첫번째 줄(안보이는 줄, 블록 위치는 여기서부터)
     board_second = 1 # 보드의 두번째 줄(안보이는 줄)
     board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
+    show_rank_five = 5 # DB 점수 상위 5개
 
 class Draw:
 
