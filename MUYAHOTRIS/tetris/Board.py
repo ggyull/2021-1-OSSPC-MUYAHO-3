@@ -310,6 +310,7 @@ class Board:
         gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))
         self.screen.blit(gameover_image, resize.init_image_point)  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()
+        self.resizing()
         running = True
         while running:
             for event in pygame.event.get():
@@ -342,7 +343,7 @@ class Board:
             fontObj = pygame.font.Font(pygame_menu.font.FONT_MUNRO, Size.HS_font_size)
             textSurfaceObj = fontObj.render('HighScore : '+txt, True, Color.LIGHTYELLOW)
             textRectObj = textSurfaceObj.get_rect()
-            textRectObj.center = (Size.HS_center_x, Size.HS_center_y)
+            textRectObj.center = (resize.display_width/2, resize.display_height/2)
             self.screen.blit(textSurfaceObj, textRectObj)
             pygame.display.update()
         running = True

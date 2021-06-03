@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Menu import *
 from Tetris import *
+from Variable import *
 
 mymenu=Menu()
 mymenu.run()
@@ -13,6 +14,19 @@ while True:
         elif event.type == VIDEORESIZE:
             mymenu.w=event.w
             mymenu.h=event.h
+            pre_display_width = resize.display_width
+            pre_display_height = resize.display_height
+            (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+            if resize.display_width <= resize.min_display_w:
+                resize.display_width = resize.min_display_w
+            if resize.display_height <= resize.min_display_h:
+                resize.display_height = resize.min_display_h
+            var_display_width_rate = resize.display_width / pre_display_width
+            var_display_height_rate = resize.display_height / pre_display_height
+            Image.combo_image_width = int(Image.combo_image_width * var_display_width_rate)
+            Image.combo_image_height = int(Image.combo_image_height * var_display_height_rate)
+            Image.combo_image_size = (Image.combo_image_width, Image.combo_image_height)
+            Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
             if event.w < MN.min_display_w:   #최소 사이즈 정하기
                 mymenu.w = MN.min_display_w
             if event.h < MN.min_display_h:
