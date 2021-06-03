@@ -180,6 +180,7 @@ class Image:
     icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
+    levelup_image_ref = 'assets/images/muyaho1.jpg' #levelup 이미지 주가
     main_image = pygame_menu.baseimage.BaseImage(
         image_path='assets/images/main_image.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
@@ -280,9 +281,3 @@ class Sound:
 class Effect:
     combo_duration = 0.3 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
-
-class Image:
-    icon_ref = 'assets/images/icon.png' # 테트리스 exe 아이콘
-    pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
-    gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
-    levelup_image_ref = 'assets/images/bomb.jpg' #levelup 이미지 주
