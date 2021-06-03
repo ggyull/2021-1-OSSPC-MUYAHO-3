@@ -286,8 +286,3 @@ class Image:
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
     levelup_image_ref = 'assets/images/bomb.jpg' #levelup 이미지 주
-
-class resize:
-    init_display_w = 600 # 시작 디스플레이 가로
-    init_display_h = 600# 시작 디스플레이 세로
-    (display_width, display_height) = (0,0) # 게임 창 크기
