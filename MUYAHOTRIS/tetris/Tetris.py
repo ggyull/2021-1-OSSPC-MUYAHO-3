@@ -54,6 +54,8 @@ class Tetris:
                 pygame.mixer.music.stop()
                 self.board.GameOver()
                 self.Score = self.board.score
+                self.Level = self.board.level
+                #self.Lines = self.board.lines
                 self.check_reset = True
                 self.board.init_board()
                 break

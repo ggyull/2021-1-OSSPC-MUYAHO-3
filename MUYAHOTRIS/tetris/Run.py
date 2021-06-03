@@ -44,7 +44,7 @@ while True:
             elif mymenu.page=='page4':
                 mymenu.hard_rank()
             elif mymenu.page=='page5':
-                mymenu.Mini_the_rank()
+                mymenu.level_rank()
             elif mymenu.page=='page6':
                 mymenu.show_score(mymenu.Mode,mymenu.tetris.Score)
             elif mymenu.page=='page7':
