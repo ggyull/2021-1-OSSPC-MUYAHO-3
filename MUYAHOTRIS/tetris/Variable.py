@@ -98,7 +98,7 @@ class Set:
 
     framerate = 30 # 프레임 설정
     init_score = 0 # 초기 점수 세팅
-    init_level = 9 # 초기 레벨
+    init_level = 1 # 초기 레벨
     init_goal = 6 # 레벨업을 하기 위한 조건
     init_skill = 0 # q스킬 게이지
     plus_goal = 1 # 레벨 업 시 추가되는 목표
