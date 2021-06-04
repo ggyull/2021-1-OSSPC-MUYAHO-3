@@ -198,10 +198,11 @@ class Board:
                     self.level += Set.plus_level
                     self.goal = Set.init_goal * self.level
                     self.levelup()
-                    if self.level < Set.max_level:
-                        self.board = []
-                        for i in range(self.height):
-                            self.board.append(Level.lv[self.level-2][i])
+                    if Level_Up.level_up_mode_key:
+                        if self.level < Set.max_level:
+                            self.board = []
+                            for i in range(self.height):
+                                self.board.append(Level.lv[self.level-Num.Two][i])
                 else:
                     self.goal = '-'
 
@@ -329,6 +330,7 @@ class Board:
                     sys.exit()
                 elif event.type == KEYDOWN:
                     running = False
+        Level_Up.level_up_mode_key = False
         self.HS(str(self.score))    #GameOver 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
 
     def newGame(self):
@@ -393,11 +395,12 @@ class Board:
         pygame.display.update()
 
     def levelup(self): #레벨 업 시
-        (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
-        levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
-        levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
-        levelup_sound = pygame.mixer.Sound(Sound.start_sound_ref)
-        self.screen.blit(levelup_image, (0, 0))
-        pygame.display.update()
-        levelup_sound.play()
-        time.sleep(1)
+        if Level_Up.level_up_mode_key:
+            (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
+            levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
+            levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
+            levelup_sound = pygame.mixer.Sound(Sound.start_sound_ref)
+            self.screen.blit(levelup_image, (0, 0))
+            pygame.display.update()
+            levelup_sound.play()
+            time.sleep(1)

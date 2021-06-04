@@ -214,6 +214,7 @@ class Menu:
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
     def level_mode(self):
+        Level_Up.level_up_mode_key = True
         self.Mode = 'Level'
         self.tetris.mode = 'Level'
         self.tetris.run(MN.start_easy, 'Level') # speed in easy mode
