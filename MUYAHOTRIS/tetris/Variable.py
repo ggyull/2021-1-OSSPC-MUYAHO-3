@@ -48,7 +48,8 @@ class Piece_Shape:
     pink = (242, 64, 235)  # rgb(242, 64, 235) # T
     red = (225, 13, 27)  # rgb(225, 13, 27) # Z
     black = (55, 55, 55)  # rgb(55, 55, 55) # background
-    Block_COLOR = [yellow, cyan, orange, blue, red, green, pink, black]
+    lightyellow = (251, 255, 213) # rgb(1, 255, 255) #level block
+    Block_COLOR = [yellow, cyan, orange, blue, red, green, pink, black, lightyellow]
 
 class Num:
 
@@ -78,6 +79,7 @@ class Color:
     LIGHTYELLOW = (175, 175, 20)
     DARKGRAY = (26, 26, 26)
     MORELIGHTYELLOW = (255,247,22)
+
 
 class Size:
 
