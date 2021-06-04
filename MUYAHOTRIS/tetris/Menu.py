@@ -119,7 +119,7 @@ class Menu:
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_main
         self.menu.add_vertical_margin(self.margin_main)
-        self.menu.add_text_input('ID: ',maxchar=3, onreturn=self.save_id,font_size=self.font_main)
+        self.menu.add_text_input('ID: ',maxchar=Num.Three, onreturn=self.save_id,font_size=self.font_main)
         self.menu.add_button('back', self.reset, font_size=self.font_main)
         self.menu.add_button('EXIT',pygame_menu.events.EXIT,font_size=self.font_main)
 
@@ -155,13 +155,13 @@ class Menu:
             for i in range(Set.show_rank_five):
                 easy_name = str(easy_data[i]['ID'])
                 easy_score = '{0:>05s}'.format(str(easy_data[i]['score']))
-                r= "#{} : ".format(i+1) + easy_name + "    " + easy_score
+                r= "#{} : ".format(i+Num.One) + easy_name + "    " + easy_score
                 self.menu.add_button(r,font_size=self.font_main)
         else:
             for i in range(len(easy_data)):
                 easy_name = str(easy_data[i]['ID'])
                 easy_score = '{0:>05s}'.format(str(easy_data[i]['score']))
-                r= "#{} : ".format(i+1) + easy_name + "    " + easy_score
+                r= "#{} : ".format(i+Num.One) + easy_name + "    " + easy_score
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
@@ -178,13 +178,13 @@ class Menu:
             for i in range(Set.show_rank_five):
                 hard_name = str(easy_data[i]['ID'])
                 hard_score = '{0:>05s}'.format(str(hard_data[i]['score']))
-                r= "#{} : ".format(i+1) + hard_name + "    " + hard_score
+                r= "#{} : ".format(i+Num.One) + hard_name + "    " + hard_score
                 self.menu.add_button(r,font_size=self.font_main)
         else:
             for i in range(len(hard_data)):
                 hard_name = str(hard_data[i]['ID'])
                 hard_score = '{0:>05s}'.format(str(hard_data[i]['score']))
-                r= "#{} : ".format(i+1) + hard_name + "    " + hard_score
+                r= "#{} : ".format(i+Num.One) + hard_name + "    " + hard_score
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
@@ -202,18 +202,19 @@ class Menu:
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
                 #level_lines = '{0:>05s}'.format(str(level_data[i]['lines']))
-                r= "#{} : ".format(i+1) + level_name + "    " + level_score #+ "     " + level_lines
+                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score #+ "     " + level_lines
                 self.menu.add_button(r,font_size=self.font_main)
         else:
             for i in range(len(level_data)):
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
                 #level_lines = '{0:>05s}'.format(str(level_data[i]['lines']))
-                r= "#{} : ".format(i+1) + level_name + "    " + level_score #+ "     " + level_lines
+                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score #+ "     " + level_lines
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
     def level_mode(self):
+        Level_Up.level_up_mode_key = True
         self.Mode = 'Level'
         self.tetris.mode = 'Level'
         self.tetris.run(MN.start_easy, 'Level') # speed in easy mode
