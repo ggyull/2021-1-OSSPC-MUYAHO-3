@@ -400,7 +400,7 @@ class Board:
             levelup_image = pygame.image.load(Image.levelup_image_ref) #levelup 이미지 로드
             levelup_image = pygame.transform.scale(levelup_image, (resize.display_width,resize.display_height))
             levelup_sound = pygame.mixer.Sound(Sound.start_sound_ref)
-            self.screen.blit(levelup_image, (0, 0))
+            self.screen.blit(levelup_image, resize.init_image_point)
             pygame.display.update()
             levelup_sound.play()
-            time.sleep(1)
+            time.sleep(Num.One)
