@@ -61,6 +61,18 @@ class Tetris:
                 self.check_reset = True
                 self.board.init_board()
                 break
+            if self.board.game_complete:
+                self.screen.fill(Color.BLACK)
+                pygame.mixer.music.stop()
+                complete_sound = pygame.mixer.Sound(Sound.fanfare_sound_ref)
+                complete_sound.play()
+                self.board.GameComplete()
+                self.Score = self.board.score
+                self.Level = self.board.level
+                #self.Lines = self.board.lines
+                self.check_reset = True
+                self.board.init_board()
+                break
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()

@@ -26,12 +26,14 @@ class Board:
         self.screen_point2_y = Draw.screen_point2_y
         self.screen_widget_x = self.screen_point1_x+(self.screen_point2_x-self.screen_point1_x)*Draw.white_text_rate #하얀부분 글씨
 
+
     def init_board(self):
         self.board = []
         self.score = Set.init_score
         self.level = Set.init_level
         self.goal = Set.init_goal
         self.skill = Set.init_skill
+        self.game_complete = Set.init_complete #마지막 레벨 10에서 목표에 도달했는지 여부 확인
         for _ in range(self.height):
             self.board.append([Set.empty_board]*self.width)
 
@@ -196,15 +198,16 @@ class Board:
             if self.goal == Set.success_goal:
                 if self.level < Set.max_level:
                     self.level += Set.plus_level
-                    self.goal = Set.init_goal * self.level
+                    self.goal = 1#Set.init_goal + Set.plus_goal*self.level
+
                     self.levelup()
                     if Level_Up.level_up_mode_key:
-                        if self.level < Set.max_level:
+                        if self.level <= Set.max_level:
                             self.board = []
                             for i in range(self.height):
                                 self.board.append(Level.lv[self.level-Num.Two][i])
-                else:
-                    self.goal = '-'
+                else :
+                    self.game_complete = True
 
 
     def game_over(self):
@@ -332,6 +335,24 @@ class Board:
                     running = False
         Level_Up.level_up_mode_key = False
         self.HS(str(self.score))    #GameOver 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
+
+    def GameComplete(self):
+        (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
+        gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
+        gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))
+        self.screen.blit(gameover_image, resize.init_image_point)  # Gameover 이미지 시작 위치 좌상단 좌
+        pygame.display.update()
+        self.resizing()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYDOWN:
+                    running = False
+        Level_Up.level_up_mode_key = False
+        self.HS(str(self.score))    #GameComplete 함수 호출후 그 다음화면 HIGH SCORE 화면 호출
 
     def newGame(self):
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
