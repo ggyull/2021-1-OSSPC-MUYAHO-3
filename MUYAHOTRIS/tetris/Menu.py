@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-#https://pygame-menu.readthedocs.io/en/latest/_source/add_widgets.html
-#https://github.com/ppizarror/pygame-menu
-# 참고해서 메뉴 만들어 봅시다!
-
 import pygame
 import pygame_menu
 from Tetris import *
@@ -15,36 +10,35 @@ class Menu:
     def __init__(self):
         pygame.init()
         MN.infoObject = pygame.display.Info()
-        self.tetris=Tetris()
-        self.database = Database()
-        (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()
-        self.w = MN.menu_display_w
-        self.h = MN.menu_display_h
-        self.Mode = MN.initial_mode
-        self.id= MN.initial_id
-        self.score=Set.init_score
-        self.level=Set.init_level
-        self.page=MN.initial_page
-        self.surface=pygame.display.set_mode((self.w,self.h),RESIZABLE)
-        self.mytheme=MN.mytheme
-        self.mytheme2=MN.mytheme_help
-        self.menu = pygame_menu.Menu(self.h,self.w, '', theme=self.mytheme)
-        self.font_main=MN.font_main   # 메인 폰트 사이즈
-        self.font_sub=MN.font_sub     # 서브 폰트 사이즈
-        self.widget_margin_main=MN.widget_margin_main         #메인 위젯 사이 간격
-        self.widget_margin_showpage=MN.widget_margin_showpage #show 페이지 위젯 사이 간격
-        self.widget_margin_rank=MN.widget_margin_rank         #rank 페이지 위젯 사이 간격
-        self.margin_main=MN.margin_main                       #메인 페이지 x,y 위젯 시작 위치
-        self.margin_show=MN.margin_show                       #show 페이지 x,y 위젯 시작 위치
-        self.margin_help=MN.margin_help                       #help 페이지 back 위치
-        self.margin_rank=MN.margin_rank                       #rank 페이지 x,y 위젯 시작 위치
+        self.tetris=Tetris()                                                                                                        #테트리스 객체
+        self.database = Database()                                                                                                  #데이터 베이스 객체
+        (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()                                            #메뉴 디스플레이 사이즈 얻어오기
+        self.w = MN.menu_display_w                                                                                                  #메뉴 디스플레이 너비
+        self.h = MN.menu_display_h                                                                                                  #메뉴 디스플레이 높이
+        self.Mode = MN.initial_mode                                                                                                 #모드 초기 값
+        self.id= MN.initial_id                                                                                                      #초기 랭킹 이니셜 id 값
+        self.score=Set.init_score                                                                                                   #스코어 초기 값
+        self.level=Set.init_level                                                                                                   #레벨 초기 값
+        self.page=MN.initial_page                                                                                                   #페이지 초기 값
+        self.surface=pygame.display.set_mode((self.w,self.h),RESIZABLE)                                                             #디스플레이 리사이징 모드
+        self.mytheme=MN.mytheme                                                                                                     #초기 테마
+        self.menu = pygame_menu.Menu(self.h,self.w, '', theme=self.mytheme)                                                         #메뉴 값
+        self.font_main=MN.font_main                                                                                                 #메인 폰트 사이즈
+        self.font_sub=MN.font_sub                                                                                                   #서브 폰트 사이즈
+        self.widget_margin_main=MN.widget_margin_main                                                                               #메인 위젯 사이 간격
+        self.widget_margin_showpage=MN.widget_margin_showpage                                                                       #show 페이지 위젯 사이 간격
+        self.widget_margin_rank=MN.widget_margin_rank                                                                               #rank 페이지 위젯 사이 간격
+        self.margin_main=MN.margin_main                                                                                             #메인 페이지 x,y 위젯 시작 위치
+        self.margin_show=MN.margin_show                                                                                             #show 페이지 x,y 위젯 시작 위치
+        self.margin_help=MN.margin_help                                                                                             #help 페이지 back 위치
+        self.margin_rank=MN.margin_rank                                                                                             #rank 페이지 x,y 위젯 시작 위치
 
-    def run(self):   # 실행하는 함수
+    def run(self):                                                                                                                  #실행하는 함수
         icon = pygame.image.load(Image.icon_ref)
         pygame.display.set_icon(icon)
         pygame.display.set_caption('MUYAHOTRIS')
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
-        self.page=MN.initial_page   #시작하면 기본 모드로 모드가 설정
+        self.page=MN.initial_page
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_main
         self.menu.add_vertical_margin(self.margin_main)
@@ -55,12 +49,11 @@ class Menu:
         self.menu.add_button('        Exit         ', pygame_menu.events.EXIT,font_size=self.font_main)
 
 
-    def reset(self):  ## 뒤로 갈때 보여줄 목록들
+    def reset(self):                                                                                                                #뒤로 갈때 보여줄 목록들
         self.surface = pygame.display.set_mode((self.w, self.h), RESIZABLE)
         self.mytheme.background_color = Image.main_image
         self.menu = pygame_menu.Menu(self.h, self.w, '', theme=self.mytheme)
         self.mytheme.widget_margin=self.widget_margin_main
-        #Menu.click.play()
         self.page=MN.initial_page
         self.menu.clear()
         self.menu.add_vertical_margin(self.margin_main)
@@ -70,7 +63,7 @@ class Menu:
         self.menu.add_button('  Help  ', self.help, font_size=self.font_main)
         self.menu.add_button('        Exit         ', pygame_menu.events.EXIT,font_size=self.font_main)
 
-    def help(self): # help 페이
+    def help(self):                                                                                                                 #조작법 메뉴
         self.page='page7'
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         self.surface = pygame.display.set_mode((resize.display_width,resize.display_height))
@@ -80,9 +73,8 @@ class Menu:
         self.menu.add_vertical_margin(self.margin_help)
         self.menu.add_button(' back ', self.reset, font_size=self.font_sub)
 
-    def show_game(self):
+    def show_game(self):                                                                                                            #초기 메뉴 화면
         self.page = 'page1'
-        #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
         self.menu.add_vertical_margin(self.margin_main)
@@ -92,24 +84,21 @@ class Menu:
         self.menu.add_button('     Hard mode     ', self.start_hard, font_size=self.font_main)
         self.menu.add_button('         back         ', self.reset, font_size=self.font_main)
 
-    def start_easy(self):
-        #이지모드 하드모드를 제대로 구현 가능하다면 후에 속도를 선택할 수 있는 메뉴와 UI를 만드는 것도 고려 가능할 것 같음.
-        #Menu.click.play()
+    def start_easy(self):                                                                                                           #easy 모드 실행
         self.Mode = 'Easy'
         self.tetris.mode = 'Easy'
-        self.tetris.run(MN.start_easy, 'EASY') # speed in easy mode
+        self.tetris.run(MN.start_easy, 'EASY')
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Score)
 
-    def start_hard(self):
-        #Menu.click.play()
+    def start_hard(self):                                                                                                           #hard 모드 실행
         self.Mode = 'Hard'
         self.tetris.mode = 'Hard'
-        self.tetris.run(MN.start_hard, 'HARD') # speed in hard mode
+        self.tetris.run(MN.start_hard, 'HARD')
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Score)
 
-    def show_score(self, game_mode, game_score):
+    def show_score(self, game_mode, game_score):                                                                                    #점수 보여주기
         self.page = 'page6'
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
         self.surfuace = pygame.display.set_mode((resize.display_width, resize.display_height), RESIZABLE)
@@ -123,15 +112,14 @@ class Menu:
         self.menu.add_button('back', self.reset, font_size=self.font_main)
         self.menu.add_button('EXIT',pygame_menu.events.EXIT,font_size=self.font_main)
 
-    def save_id(self, value):
+    def save_id(self, value):                                                                                                       #점수 DB 저장
         self.id = value
         self.database.add_data(self.Mode, self.id, self.score)
         self.reset()
 
 
-    def show_rank(self):
+    def show_rank(self):                                                                                                            #랭킹 보여주기
         self.page = 'page2'
-        #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_showpage
         self.menu.add_vertical_margin(self.margin_main)
@@ -142,9 +130,8 @@ class Menu:
         self.menu.add_button('     Level mode ranking    ', self.level_rank, font_size=self.font_main)
         self.menu.add_button('         back         ', self.reset, font_size=self.font_main)
 
-    def easy_rank(self):
+    def easy_rank(self):                                                                                                            #easy 모드 랭킹
         self.page='page3'
-        #Menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_rank
         self.menu.add_vertical_margin(self.margin_main)
@@ -165,9 +152,8 @@ class Menu:
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
-    def hard_rank(self):
+    def hard_rank(self):                                                                                                            #hard 모드 랭킹
         self.page='page4'
-        #menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_rank
         self.menu.add_vertical_margin(self.margin_main)
@@ -188,9 +174,8 @@ class Menu:
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
-    def level_rank(self):
+    def level_rank(self):                                                                                                           #level 모드 랭킹
         self.page='page5'
-        #menu.click.play()
         self.menu.clear()
         self.mytheme.widget_margin=self.widget_margin_rank
         self.menu.add_vertical_margin(self.margin_main)
@@ -201,22 +186,20 @@ class Menu:
             for i in range(Set.show_rank_five):
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
-                #level_lines = '{0:>05s}'.format(str(level_data[i]['lines']))
-                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score #+ "     " + level_lines
+                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score
                 self.menu.add_button(r,font_size=self.font_main)
         else:
             for i in range(len(level_data)):
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
-                #level_lines = '{0:>05s}'.format(str(level_data[i]['lines']))
-                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score #+ "     " + level_lines
+                r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score
                 self.menu.add_button(r,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
-    def level_mode(self):
+    def level_mode(self):                                                                                                           #level 모드 함수
         Level_Up.level_up_mode_key = True
         self.Mode = 'Level'
         self.tetris.mode = 'Level'
-        self.tetris.run(MN.start_easy, 'Level') # speed in easy mode
+        self.tetris.run(MN.start_easy, 'Level')
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Level)

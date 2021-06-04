@@ -290,16 +290,7 @@ class Board:
         self.screen.blit(goal_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_value_dy))
         self.screen.blit(play_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.play_text_dy))
         self.screen.blit(time_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.time_text_dy))
-        #self.screen.blit(next_text, (Draw.next_text_dx, Draw.next_text_dy))
-        #self.screen.blit(score_text, (Draw.score_text_dx, Draw.score_text_dy))
-        #self.screen.blit(score_value, (Draw.score_value_dx, Draw.score_value_dy))
-        #self.screen.blit(level_text, (Draw.level_text_dx, Draw.level_text_dy))
-        #self.screen.blit(level_value, (Draw.level_value_dx, Draw.level_value_dy))
-        #self.screen.blit(goal_text, (Draw.goal_text_dx, Draw.goal_text_dy))
-        #self.screen.blit(goal_value, (Draw.goal_value_dx, Draw.goal_value_dy))
-        #self.screen.blit(play_text, (Draw.play_text_dx, Draw.play_text_dy))
-        #self.screen.blit(time_text, (Draw.time_text_dx, Draw.time_text_dy))
-
+        
     def pause(self):
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         pause_image = pygame.image.load(Image.pause_image_ref)              # Pause 이미지 로드
