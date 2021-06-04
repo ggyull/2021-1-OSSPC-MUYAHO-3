@@ -201,6 +201,7 @@ class MN:
     menu_display_h = 450
     initial_mode = 0
     initial_id = 0 # 초기 ID 값
+    surface = (0,0) # 초기 surface
 
 
     #메뉴 기본 테마 만들기
@@ -224,8 +225,8 @@ class MN:
 
     rank_id_max=3           # 랭크 ID 최대 이름 수
     rank_max=5              # 랭크 보여주는 창 최대 갯수 -1
-    min_display_w =400      # 메뉴 최소 사이즈 가로
-    min_display_h =400      # 메뉴 최소 사이즈 세로
+    min_display_w =357      # 메뉴 최소 사이즈 가로
+    min_display_h =450      # 메뉴 최소 사이즈 세로
     widget_center = 0
     sleep_time = 0.3
     initial_page = 'page0'  # 메뉴 시작 페이지

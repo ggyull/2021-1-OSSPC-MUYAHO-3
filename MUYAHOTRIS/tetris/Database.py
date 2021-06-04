@@ -5,7 +5,7 @@ class Database:
     def __init__(self):
         self.score_db = pymysql.connect(
         user = 'user',
-        passwd = 'muyaho12',
+        passwd = 'muyaho12', # 데이터 서버 비밀번호는 나만 알음...  #요거 문제 해겨 하긴 해야함
         host = 'muyahotris.cbsjhgovfxo7.ap-northeast-2.rds.amazonaws.com',
         db = 'muyahotris',
         charset = 'utf8'

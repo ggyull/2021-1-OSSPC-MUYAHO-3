@@ -2,6 +2,8 @@ import pygame, sys, time, datetime
 from pygame.locals import *
 from Board import *
 from Variable import *
+import Menu as mymenu
+
 
 class Tetris:
 
@@ -76,6 +78,7 @@ class Tetris:
                 elif event.type == VIDEORESIZE:
                     if event.h != resize.display_height or event.w != resize.display_width:
                         self.board.resizing()
+                        (MN.menu_display_w, MN.menu_display_h) = pygame.display.get_surface().get_size()
                         pygame.display.set_mode((resize.display_width, resize.display_height), RESIZABLE)
 
             self.board.draw(previous_time)
