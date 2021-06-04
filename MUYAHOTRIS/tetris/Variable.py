@@ -285,7 +285,7 @@ class Sound:
     fanfare_sound_ref = 'assets/sounds/fanfare.mp3' #게임 클리어 시 사운드 주소
 
 class Effect:
-    combo_duration = 0.3 # 콤보 이미지 노출 시간
+    combo_duration = 0.1 # 콤보 이미지 노출 시간
     count = 0            # 누가 소리를 한 번만 내었느냐 말이야(마지막 지우는 줄 세기 위함)
 
 class Level_Up:

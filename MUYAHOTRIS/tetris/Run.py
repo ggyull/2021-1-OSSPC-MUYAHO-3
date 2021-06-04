@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 from Menu import *
 from Tetris import *
 from Variable import *
 
-mymenu=Menu()
-mymenu.run()
-# 실행 파일
+mymenu=Menu()   #메뉴 객체 생성
+mymenu.run()    #실행 파일
+
 while True:
     events = pygame.event.get()
     for event in events:
@@ -16,22 +15,22 @@ while True:
             mymenu.h=event.h
             pre_display_width = resize.display_width
             pre_display_height = resize.display_height
-            (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
-            if resize.display_width <= resize.min_display_w:
+            (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()     #현재 창 크기 받아오기
+            if resize.display_width <= resize.min_display_w:                                            #리사이즈 최소 조건 너비
                 resize.display_width = resize.min_display_w
-            if resize.display_height <= resize.min_display_h:
+            if resize.display_height <= resize.min_display_h:                                           #리사이즈 최소 조건 높이
                 resize.display_height = resize.min_display_h
-            var_display_width_rate = resize.display_width / pre_display_width
-            var_display_height_rate = resize.display_height / pre_display_height
-            Image.combo_image_width = int(Image.combo_image_width * var_display_width_rate)
-            Image.combo_image_height = int(Image.combo_image_height * var_display_height_rate)
-            Image.combo_image_size = (Image.combo_image_width, Image.combo_image_height)
-            Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)
-            if event.w < MN.min_display_w:   #최소 사이즈 정하기
+            var_display_width_rate = resize.display_width / pre_display_width                           #리사이즈 너비 비율
+            var_display_height_rate = resize.display_height / pre_display_height                        #리사이즈 높이 비율
+            Image.combo_image_width = int(Image.combo_image_width * var_display_width_rate)             #콤보 점수 이미지 너비 재설정
+            Image.combo_image_height = int(Image.combo_image_height * var_display_height_rate)          #콤보 점수 이미지 높이 재설정
+            Image.combo_image_size = (Image.combo_image_width, Image.combo_image_height)                #콤보 이미지 사이즈
+            Image.combo_image_init_y = int(Image.combo_image_init_y * var_display_height_rate)          #콤보 이미지
+            if event.w < MN.min_display_w:
                 mymenu.w = MN.min_display_w
             if event.h < MN.min_display_h:
                 mymenu.h = MN.min_display_h
-            mymenu.surface = pygame.display.set_mode((mymenu.w, mymenu.h), RESIZABLE) #리사이징 된걸로 새로 창 설정
+            mymenu.surface = pygame.display.set_mode((mymenu.w, mymenu.h), RESIZABLE)                   #리사이징 된걸로 새로 창 설정
             mymenu.menu = pygame_menu.Menu(mymenu.h, mymenu.w, '', theme=MN.mytheme)
             mymenu.menu.draw(mymenu.surface)
             mymenu.font_main=int((mymenu.h)/MN.font_rate_main)
@@ -46,8 +45,8 @@ while True:
             mymenu.widget_margin_showpage = (MN.widget_center, int((mymenu.h) / MN.widget_rate_showpage))
             mymenu.widget_margin_rank = (MN.widget_center, int((mymenu.h) / MN.widget_rate_rank))
 
-            #time.sleep(MN.sleep_time) # 페이지 변환 너무 빨라 렉걸리는 거 방지하기 위해 없어도 큰 상관 없음
-            if mymenu.page=='page0': #리사이징 후 원래 페이지로 돌아가기
+            #리사이징 후 원래 페이지로 돌아가기
+            if mymenu.page=='page0':
                 mymenu.run()
             elif mymenu.page=='page1':
                 mymenu.show_game()
@@ -64,8 +63,7 @@ while True:
             elif mymenu.page=='page7':
                 mymenu.help()
 
-
-    if mymenu.menu.is_enabled():
-        mymenu.menu.update(events)
-        mymenu.menu.draw(mymenu.surface)
-    pygame.display.update()
+    if mymenu.menu.is_enabled():                                                                        #메뉴가 활성화될 시
+        mymenu.menu.update(events)                                                                      #이벤트 업데이트
+        mymenu.menu.draw(mymenu.surface)                                                                #그리기
+    pygame.display.update()                                                                             #디스플레이 업데이트
