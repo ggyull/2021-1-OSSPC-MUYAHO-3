@@ -86,7 +86,7 @@ class Board:
         return True
 
     def can_drop_piece(self):                                                                                           # 블록 낙하 가능 판단
-        return self.can_move_piece(dx=Set.keep_state, dy=Set.plus_one)                                                  
+        return self.can_move_piece(dx=Set.keep_state, dy=Set.plus_one)
 
     def try_rotate_piece(self, clockwise=True):                                                                         # 블록 회전할 때
         self.piece.rotate(clockwise)
@@ -284,7 +284,7 @@ class Board:
         self.screen.blit(goal_value, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.goal_value_dy))
         self.screen.blit(play_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.play_text_dy))
         self.screen.blit(time_text, (self.screen_widget_x, (self.screen_point2_y-self.screen_point1_y)*Draw.time_text_dy))
-        
+
     def pause(self):
         (resize.display_width,resize.display_height) = pygame.display.get_surface().get_size()
         pause_image = pygame.image.load(Image.pause_image_ref)                                                          # Pause 이미지 로드

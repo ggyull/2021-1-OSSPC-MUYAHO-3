@@ -162,7 +162,7 @@ class Menu:
         hard_data = self.database.load_data('Hard')
         if len(hard_data)>Set.show_rank_five:
             for i in range(Set.show_rank_five):
-                hard_name = str(easy_data[i]['ID'])
+                hard_name = str(hard_data[i]['ID'])
                 hard_score = '{0:>05s}'.format(str(hard_data[i]['score']))
                 r= "#{} : ".format(i+Num.One) + hard_name + "    " + hard_score
                 self.menu.add_button(r,font_size=self.font_main)
