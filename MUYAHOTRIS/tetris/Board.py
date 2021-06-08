@@ -145,7 +145,7 @@ class Board:
         delete_number = len(remove)                                                                                     # 지워지는 줄 수
 
         for y in remove:
-            line_sound = pygame.mixer.Sound("assets/sounds/MP_Mirror Shattering.mp3")
+            line_sound = pygame.mixer.Sound(Sound.deleteline_sound_ref)
             if delete_number == Num.Two:                                                                                # 2줄 동시에 지우는 경우
                 combo_image = pygame.image.load("assets/images/2x Combo.png")                                           # 2콤보시 나오는 이미지
                 combo_image = pygame.transform.scale(combo_image, Image.combo_image_size)                               # 이미지 리사이징

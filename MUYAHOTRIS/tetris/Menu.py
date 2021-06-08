@@ -22,7 +22,7 @@ class Menu:
         self.page=MN.initial_page                                                                                                   #페이지 초기 값
         self.surface=pygame.display.set_mode((self.w,self.h),RESIZABLE)                                                             #디스플레이 리사이징 모드
         self.mytheme=MN.mytheme                                                                                                     #초기 테마
-        self.menu = pygame_menu.Menu(self.h,self.w, '', theme=self.mytheme)                                                         #메뉴 값
+        self.menu = pygame_menu.Menu(height=self.h,width=self.w,title='',theme= self.mytheme)                                    #메뉴 값
         self.font_main=MN.font_main                                                                                                 #메인 폰트 사이즈
         self.font_sub=MN.font_sub                                                                                                   #서브 폰트 사이즈
         self.widget_margin_main=MN.widget_margin_main                                                                               #메인 위젯 사이 간격
@@ -143,7 +143,7 @@ class Menu:
                 easy_name = str(easy_data[i]['ID'])
                 easy_score = '{0:>05s}'.format(str(easy_data[i]['score']))
                 r= "#{} : ".format(i+Num.One) + easy_name + "    " + easy_score
-                self.menu.add_button(r,font_size=self.font_main)
+                self.menu.add_button(r,self.pass_menu, font_size=self.font_main)
         else:
             for i in range(len(easy_data)):
                 easy_name = str(easy_data[i]['ID'])
@@ -165,7 +165,7 @@ class Menu:
                 hard_name = str(hard_data[i]['ID'])
                 hard_score = '{0:>05s}'.format(str(hard_data[i]['score']))
                 r= "#{} : ".format(i+Num.One) + hard_name + "    " + hard_score
-                self.menu.add_button(r,font_size=self.font_main)
+                self.menu.add_button(r,self.pass_menu,font_size=self.font_main)
         else:
             for i in range(len(hard_data)):
                 hard_name = str(hard_data[i]['ID'])
@@ -187,13 +187,13 @@ class Menu:
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
                 r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score
-                self.menu.add_button(r,font_size=self.font_main)
+                self.menu.add_button(r,self.pass_menu,font_size=self.font_main)
         else:
             for i in range(len(level_data)):
                 level_name = str(level_data[i]['ID'])
                 level_score = '{0:>05s}'.format(str(level_data[i]['level']))
                 r= "#{} : ".format(i+Num.One) + level_name + "    " + level_score
-                self.menu.add_button(r,font_size=self.font_main)
+                self.menu.add_button(r,self.pass_menu,font_size=self.font_main)
         self.menu.add_button('back', self.reset,font_size=self.font_sub)
 
     def level_mode(self):                                                                                                           #level 모드 함수
@@ -203,3 +203,6 @@ class Menu:
         self.tetris.run(MN.start_easy, 'Level')
         self.menu.clear()
         self.show_score(self.Mode, self.tetris.Level)
+
+    def pass_menu():
+        pass

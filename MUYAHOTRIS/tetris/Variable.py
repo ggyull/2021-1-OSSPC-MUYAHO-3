@@ -276,10 +276,10 @@ class Score:
 
 class Sound:
     start_sound_ref = 'assets/sounds/Start.wav' # 스타트 사운드 주소
-    block_sound_ref = 'assets/sounds/Mp_jab.mp3' # 블록 쌓을 때 사운드 주소
-    deleteline_sound_ref = 'assets/sounds/LOL.mp3' # 블록 지울 때 사운드 주소
-    bgm_ref = 'assets/sounds/new_bgm.mp3' # 배경음악 주소
-    levelup_sound_ref = 'assets/sounds/levelup_sd.mp3' #레벨업 사운드 주소
+    block_sound_ref = 'assets/sounds/MP_Jab.wav' # 블록 쌓을 때 사운드 주소
+    deleteline_sound_ref = 'assets/sounds/MP_MirrorShattering.wav' # 블록 지울 때 사운드 주소
+    bgm_ref = 'assets/sounds/new_bgm.wav' # 배경음악 주소
+    levelup_sound_ref = 'assets/sounds/levelup_sd.wav' #레벨업 사운드 주소
 
 class Effect:
     combo_duration = 0.1 # 콤보 이미지 노출 시간
