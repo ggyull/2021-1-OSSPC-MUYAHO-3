@@ -31,7 +31,6 @@ class Board:
         self.score = Set.init_score
         self.level = Set.init_level
         self.goal = Set.init_goal
-        self.skill = Set.init_skill
         self.game_complete = Set.init_complete #마지막 레벨 10에서 목표에 도달했는지 여부 확인
         for _ in range(self.height):
             self.board.append([Set.empty_board]*self.width)
