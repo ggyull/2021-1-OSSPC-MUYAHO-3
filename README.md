@@ -8,7 +8,7 @@
 ![badges](https://img.shields.io/badge/pygame_menu-3.3.0-black)    
 
 
->###Pygame을 이용한 Tetris 게임 "MUYAHOTRIS"    
+>Pygame을 이용한 Tetris 게임 "MUYAHOTRIS"    
 
 **3조 무야호**  
  
@@ -18,7 +18,7 @@
 
 - Team Member: 식품산업관리학과 [이유림](https://github.com/RimuZZ/2021-1-OSSPC-MUYAHO-3)
 
->###실행 방법   
+>실행 방법   
 ***1. Python 3.6.1 설치***
 
 ```
