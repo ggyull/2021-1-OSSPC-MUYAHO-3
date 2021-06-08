@@ -194,7 +194,7 @@ class Board:
                     self.goal = Set.init_goal + Set.plus_goal*self.level
                     self.levelup()
                     if Level_Up.level_up_mode_key:
-                        if self.level < Set.max_level:
+                        if self.level <= Set.max_level:
                             self.board = []
                             for i in range(self.height):
                                 self.board.append(Level.lv[self.level-Num.Two][i])
@@ -321,7 +321,7 @@ class Board:
 
     def GameComplete(self):
         (resize.display_width, resize.display_height) = pygame.display.get_surface().get_size()
-        gameover_image = pygame.image.load(Image.gameover_image_ref)  # Gameover 이미지 로드
+        gameover_image = pygame.image.load(Image.GameComplete_image_ref)  # Gameover 이미지 로드
         gameover_image = pygame.transform.scale(gameover_image, (resize.display_width, resize.display_height))
         self.screen.blit(gameover_image, resize.init_image_point)  # Gameover 이미지 시작 위치 좌상단 좌
         pygame.display.update()

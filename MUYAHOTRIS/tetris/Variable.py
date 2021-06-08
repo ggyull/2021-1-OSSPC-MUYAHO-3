@@ -185,6 +185,7 @@ class Image:
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
     levelup_image_ref = 'assets/images/muyaho1.jpg' #levelup 이미지 주가
+    GameComplete_image_ref = 'assets/images/clear_image.png'
     main_image = pygame_menu.baseimage.BaseImage(
         image_path='assets/images/main_image.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
