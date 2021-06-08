@@ -55,8 +55,20 @@ class Tetris:
                 self.Score = self.board.score                                                               #점수 데이터 받아오기
                 self.Level = self.board.level                                                               #레벨 데이터 받아오기
                 self.check_reset = True
-                self.board.init_board()                                                                     #보드 초기화
-                break                                                                                       #break
+                self.board.init_board()
+                break
+            if self.board.game_complete:
+                self.screen.fill(Color.BLACK)
+                pygame.mixer.music.stop()
+                complete_sound = pygame.mixer.Sound(Sound.fanfare_sound_ref)
+                complete_sound.play()
+                self.board.GameComplete()
+                self.Score = self.board.score
+                self.Level = self.board.level
+                #self.Lines = self.board.lines
+                self.check_reset = True
+                self.board.init_board()
+                break
             for event in pygame.event.get():
                 if event.type == QUIT:                                                                      #끝날 시
                     pygame.quit()

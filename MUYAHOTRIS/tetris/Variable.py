@@ -99,8 +99,8 @@ class Set:
     framerate = 30 # 프레임 설정
     init_score = 0 # 초기 점수 세팅
     init_level = 1 # 초기 레벨
-    init_goal = 5 # 레벨업을 하기 위한 조건
-    init_skill = 0 # q스킬 게이지
+    init_goal = 6 # 레벨업을 하기 위한 조건
+    plus_goal = 1 # 레벨 업 시 추가되는 목표
     empty_board = 0 # 블록이 없는 빈 상태
     create_location_x = 3 # 블록 생성 초기 x위치
     create_location_y = 0 # 블록 생성 초기 y위치
@@ -110,7 +110,7 @@ class Set:
     plus_two = 2 # 블록 두칸 이동 상수
     hidden_lines = 2 # 맨위의 숨겨진 줄수
     first_line_index_y = 2 # 맨 윗줄 y 인덱스
-    delete_score = 10 # 줄 삭제시 얻는 점수
+    delete_score = 9 # 줄 삭제시 얻는 점수
     delete_goal = 1 # 줄 삭제시 지워지는 목표
     success_goal = 0 # 목표 달성 상수
     max_level = 10 # 최대 레벨
@@ -119,6 +119,7 @@ class Set:
     board_second = 1 # 보드의 두번째 줄(안보이는 줄)
     board_third = 2 # 보드의 세번째 줄(블록이 보이는 첫번째 줄)
     show_rank_five = 5 # DB 점수 상위 5개
+    init_complete = False #10레벨 목표goal 도달여부 확인
 
 class Draw:
 
@@ -183,6 +184,7 @@ class Image:
     pause_image_ref = 'assets/images/pause_image.png' # pause 이미지 주소
     gameover_image_ref = 'assets/images/gameover_image.png' # gameover 이미지 주소
     levelup_image_ref = 'assets/images/muyaho1.jpg' #levelup 이미지 주가
+    GameComplete_image_ref = 'assets/images/clear_image.png'
     main_image = pygame_menu.baseimage.BaseImage(
         image_path='assets/images/main_image.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL)
